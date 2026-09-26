@@ -1,0 +1,104 @@
+---
+import Photo from '@/components/Photo.astro';
+/**
+ * TOUR DEL MOMENTO (temporal) — se cambia en pages.home.spotlight.
+ * Tarjeta partida: foto vertical + ficha con lo que incluye y la acción.
+ */
+import Icon from '../Icon.astro';
+import { pages, getPackage, ui, type Lang } from '@/content/site';
+import { tr } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = pages.home.spotlight;
+const pkg = getPackage(s.packageSlug);
+const dates = pkg?.dates && !pkg.dates.es.startsWith('TODO') ? tr(pkg.dates, lang) : null;
+---
+{pkg && (
+  <section class="spot section" aria-labelledby="spot-titulo">
+    <div class="container">
+      <div class="spot__card">
+        {pkg.cover && (
+          <div class="spot__media" data-reveal>
+            <Photo src={pkg.cover.src} alt={tr(pkg.cover.alt, lang)} sizes="(max-width: 48rem) 92vw, 42vw" widths={[480, 720, 960, 1280]} />
+          </div>
+        )}
+        <div class="spot__body">
+          <p class="spot__tag" data-reveal><span class="spot__dot" aria-hidden="true"></span>{tr(ui.seasonal, lang)}</p>
+          <p class="kicker" data-reveal style="--d:1">{tr(s.kicker, lang)}</p>
+          <h2 id="spot-titulo" class="spot__title" data-reveal style="--d:2">{tr(pkg.name, lang)}</h2>
+          {dates && <p class="spot__dates" data-reveal style="--d:2">{dates}</p>}
+          {pkg.summary && <p class="lead" data-reveal style="--d:3">{tr(pkg.summary, lang)}</p>}
+          {pkg.includes && (
+            <ul class="spot__includes" role="list" data-reveal style="--d:4">
+              {pkg.includes.map((x) => <li>{tr(x, lang)}</li>)}
+            </ul>
+          )}
+          <a class="btn btn--primary" href="#contacto" data-reveal style="--d:5">
+            {tr(s.cta.label, lang)} <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .spot { padding-top: 0; }
+  .spot__card {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    background: var(--bg-sunk);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .spot__media { min-height: 100%; }
+  .spot__media :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; aspect-ratio: 4 / 5; }
+  .spot__body {
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: var(--space-m);
+    padding: clamp(var(--space-l), 5vw, var(--space-2xl));
+  }
+  .spot__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.35rem 0.8rem;
+    border-radius: var(--r-pill);
+    background: var(--surface);
+    font-size: 0.75rem;
+    font-weight: var(--w-medium);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+  }
+  .spot__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.4s var(--ease-in-out) infinite;
+  }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 0.35rem color-mix(in oklab, var(--accent) 20%, transparent); } }
+  @media (prefers-reduced-motion: reduce) { .spot__dot { animation: none; } }
+  .spot__title {
+    font-size: var(--step-4);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 1.02;
+  }
+  .spot__dates { font-weight: var(--w-medium); }
+  .spot__includes { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+  .spot__includes li {
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+  @media (max-width: 48rem) {
+    .spot__card { grid-template-columns: minmax(0, 1fr); }
+    .spot__media :global(img) { aspect-ratio: 4 / 3; }
+  }
+</style>

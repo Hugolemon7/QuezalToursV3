@@ -1,0 +1,92 @@
+---
+/**
+ * PORTADA DE PÁGINA INTERIOR
+ * Foto a sangre más baja que la de inicio; titular editorial abajo a la
+ * izquierda. La foto hace un leve zoom de entrada y parallax al bajar.
+ */
+import Photo from '../Photo.astro';
+import type { Img, Lang, Text } from '@/content/site';
+import { tr, rich } from '@/lib/i18n';
+
+interface Props { lang: Lang; title: Text; lead?: Text; image: Img; kicker?: string; position?: string }
+const { lang, title, lead, image, kicker, position = '50% 50%' } = Astro.props;
+---
+<section class="phero" data-phero aria-labelledby="page-title">
+  <div class="phero__media" data-phero-media>
+    <Photo src={image.src} alt={tr(image.alt, lang)} sizes="100vw" loading="eager" fetchpriority="high" style={`object-position:${position}`} />
+  </div>
+  <div class="phero__content container">
+    {kicker && <p class="kicker phero__in" style="--i:0">{kicker}</p>}
+    <h1 id="page-title" class="phero__title phero__in" style="--i:1" set:html={rich(tr(title, lang))} />
+    {lead && <p class="phero__lead phero__in" style="--i:2">{tr(lead, lang)}</p>}
+  </div>
+</section>
+
+<style>
+  .phero {
+    position: relative;
+    height: clamp(30rem, 78svh, 52rem);
+    overflow: hidden;
+    color: var(--on-photo);
+    background: oklch(25% 0.075 258);
+    isolation: isolate;
+  }
+  .phero::before,
+  .phero::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .phero::before { top: 0; height: 8rem; background: linear-gradient(oklch(15% 0.04 258 / 0.45), transparent); }
+  .phero::after { bottom: 0; height: 65%; background: linear-gradient(to top, oklch(15% 0.04 258 / 0.8), transparent); }
+  .phero__media { position: absolute; inset: -6% 0 0; will-change: transform; }
+  .phero__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: phero-zoom 1.8s var(--ease-out) both;
+  }
+  .phero__content {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    display: grid;
+    gap: var(--space-s);
+    padding-bottom: clamp(var(--space-l), 7vh, var(--space-2xl));
+  }
+  .phero__content .kicker { color: inherit; opacity: 0.9; }
+  .phero__title {
+    font-size: var(--step-hero);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 0.92;
+    max-width: 14ch;
+  }
+  .phero__title :global(strong) { font-weight: var(--w-bold); }
+  .phero__lead { font-size: var(--step-1); max-width: 40ch; opacity: 0.92; }
+  .phero__in { animation: phero-in var(--dur-3) var(--ease-out) both; animation-delay: calc(var(--i) * 110ms + 200ms); }
+  @keyframes phero-in { from { opacity: 0; transform: translateY(var(--reveal-distance)); } }
+  @keyframes phero-zoom { from { transform: scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) {
+    .phero__in, .phero__media :global(img) { animation: none; }
+  }
+  @media (max-width: 40rem) {
+    .phero__title { font-size: var(--step-5); }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-phero]');
+  const media = hero?.querySelector<HTMLElement>('[data-phero-media]');
+  if (hero && media && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = Math.min(scrollY, hero.offsetHeight);
+      media.style.transform = `translate3d(0, ${y * 0.18}px, 0)`;
+    };
+    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+  }
+</script>

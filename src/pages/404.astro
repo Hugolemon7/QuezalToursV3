@@ -1,0 +1,35 @@
+---
+/** 404 bilingüe: el servidor la sirve para cualquier ruta que no exista. */
+import Base from '@/layouts/Base.astro';
+import Icon from '@/components/Icon.astro';
+import { ui, nav } from '@/content/site';
+import { tr, href } from '@/lib/i18n';
+const lang = 'es';
+---
+<Base lang={lang} title={ui.notFoundTitle} noindex>
+  <section class="nf container">
+    <p class="nf__code" aria-hidden="true">404</p>
+    <h1 class="nf__title">{tr(ui.notFoundTitle, 'es')}<span lang="en">{tr(ui.notFoundTitle, 'en')}</span></h1>
+    <p class="lead">{tr(ui.notFoundText, 'es')}</p>
+    <ul class="nf__links" role="list">
+      <li><a class="btn btn--primary" href="/">{tr(ui.goHome, 'es')} <Icon name="arrow" /></a></li>
+      {nav.map((item) => <li><a class="btn" href={href(item.href, 'es')}>{tr(item.label, 'es')}</a></li>)}
+      <li><a class="btn" href="/en" lang="en">English</a></li>
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .nf { display: grid; gap: var(--space-m); justify-items: start; padding-block: var(--space-2xl) var(--space-section); }
+  .nf__code {
+    font-size: clamp(6rem, 3rem + 14vw, 14rem);
+    font-weight: var(--w-bold);
+    letter-spacing: -0.06em;
+    line-height: 0.85;
+    color: var(--ink-3);
+    opacity: 0.35;
+  }
+  .nf__title { display: grid; font-size: var(--step-4); font-weight: var(--w-light); letter-spacing: var(--track-display); line-height: 1.05; }
+  .nf__title span { font-size: var(--step-2); color: var(--ink-3); }
+  .nf__links { display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: var(--space-s); }
+</style>

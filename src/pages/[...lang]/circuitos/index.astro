@@ -1,0 +1,108 @@
+---
+import Base from '@/layouts/Base.astro';
+import Icon from '@/components/Icon.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import PageIntro from '@/components/page/PageIntro.astro';
+import { pages, circuits, ui, contact, type Lang } from '@/content/site';
+import { tr, langPaths } from '@/lib/i18n';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const p = pages.circuitos;
+const groups = [circuits.cultural, circuits.nature];
+const days = tr(ui.days, lang);
+const wa = (code: string, name: string, d: string) =>
+  `${contact.whatsapp}?text=${encodeURIComponent(`${tr(ui.whatsappCircuitMsg, lang)} ${code}: ${name} (${d} ${days})`)}`;
+---
+<Base lang={lang} title={p.meta.title} description={p.meta.description} overHero>
+  <PageHero lang={lang} title={p.hero.title} lead={p.hero.lead} image={p.hero.image} position="50% 60%" />
+  <PageIntro lang={lang} paragraphs={p.description} />
+
+  {groups.map((g, gi) => (
+    <section class:list={['section', { 'section--sunk': gi === 0 }]} aria-labelledby={`grupo-${gi}`}>
+      <div class="container circ">
+        <header class="circ__head">
+          <p class="kicker" data-reveal>{String(g.items.length).padStart(2, '0')} {tr(p.meta.title, lang).toLowerCase()}</p>
+          <h2 id={`grupo-${gi}`} class="h2" data-reveal style="--d:1">{tr(g.title, lang)}</h2>
+        </header>
+        <ol class="circ__list" role="list">
+          {g.items.map((c) => {
+            const name = tr(c.name, lang);
+            return (
+              <li data-reveal>
+                <a class="row" href={wa(c.code, name, c.days)} target="_blank" rel="noopener">
+                  <span class="row__code">{c.code}</span>
+                  <span class="row__name">{name}</span>
+                  <span class="row__days">{c.days} {days}</span>
+                  <span class="row__go" aria-hidden="true"><Icon name="whatsapp" size={18} /></span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+  ))}
+
+  <ContactSection lang={lang} />
+</Base>
+
+<style>
+  .circ {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-xl) clamp(var(--space-xl), 5vw, 5rem);
+    align-items: start;
+  }
+  .circ__head {
+    position: sticky;
+    top: calc(3.5rem + var(--space-xs) * 2 + var(--space-l));
+    display: grid;
+    gap: var(--space-s);
+  }
+  .circ__list { border-top: 1px solid var(--line-strong); }
+  .row {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: var(--space-m);
+    padding: var(--space-m) var(--space-2xs);
+    border-bottom: 1px solid var(--line-strong);
+    text-decoration: none;
+    transition: background-color var(--dur-2) var(--ease-out), padding var(--dur-2) var(--ease-out);
+  }
+  .row__code { font-size: var(--step--1); font-weight: 650; letter-spacing: var(--track-label); color: var(--ink-3); }
+  .row__name {
+    font-size: var(--step-1);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-heading);
+    line-height: 1.3;
+    transition: font-weight var(--dur-2) var(--ease-out);
+  }
+  .row__days { font-size: var(--step--1); color: var(--ink-2); white-space: nowrap; }
+  .row__go {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    color: var(--ink-3);
+    transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .row:hover { padding-inline: var(--space-s); background: color-mix(in oklab, var(--ink) 4%, transparent); }
+    .row:hover .row__name { font-weight: var(--w-regular); }
+    .row:hover .row__go { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  }
+  @media (max-width: 56rem) {
+    .circ { grid-template-columns: minmax(0, 1fr); }
+    .circ__head { position: static; }
+  }
+  @media (max-width: 40rem) {
+    .row { grid-template-columns: 3.5rem minmax(0, 1fr) auto; row-gap: 0.2rem; }
+    .row__days { grid-column: 2; grid-row: 2; }
+    .row__go { grid-column: 3; grid-row: 1 / 3; }
+  }
+</style>

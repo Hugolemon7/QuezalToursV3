@@ -1,0 +1,218 @@
+---
+import Photo from '@/components/Photo.astro';
+/**
+ * VISOR — ref. Airbnb "Lo que harás"
+ * <dialog> modal: imagen grande + texto, carril de miniaturas para saltar
+ * entre elementos, flechas y teclado (← → Esc). Se abre desde cualquier
+ * botón con data-viewer-open="{id}" data-index="{n}".
+ */
+import Icon from '../Icon.astro';
+import { ui, type Lang, type Img, type Text } from '@/content/site';
+import { tr } from '@/lib/i18n';
+
+export type Slide = { image?: Img; title?: Text; text?: Text };
+interface Props { id: string; slides: Slide[]; lang: Lang; label: string }
+const { id, slides, lang, label } = Astro.props;
+---
+<dialog class="viewer" id={id} data-viewer aria-label={label}>
+  <div class="viewer__frame">
+    {slides.length > 1 && (
+      <ol class="viewer__rail" role="list">
+        {slides.map((s, i) => (
+          <li>
+            <button class="viewer__thumb" type="button" data-go={i} aria-label={`${i + 1}. ${tr(s.title, lang) || tr(s.image?.alt, lang)}`}>
+              {s.image
+                ? <Photo src={s.image.src} alt="" sizes="64px" widths={[128]} />
+                : <span class="viewer__thumb-num">{String(i + 1).padStart(2, '0')}</span>}
+            </button>
+          </li>
+        ))}
+      </ol>
+    )}
+
+    <div class="viewer__stage">
+      {slides.map((s, i) => (
+        <figure class:list={['viewer__slide', { 'viewer__slide--text': !s.image }]} data-slide={i} hidden>
+          {s.image
+            ? <div class="viewer__media"><Photo src={s.image.src} alt={tr(s.image.alt, lang)} sizes="(max-width: 48rem) 100vw, 60vw" widths={[640, 960, 1280, 1600]} /></div>
+            : <div class="viewer__media viewer__media--empty" aria-hidden="true"><span>{String(i + 1).padStart(2, '0')}</span></div>}
+          {(s.title || s.text) && (
+            <figcaption class="viewer__caption">
+              <p class="kicker">{i + 1} / {slides.length}</p>
+              {s.title && <p class="viewer__title">{tr(s.title, lang)}</p>}
+              {s.text && <p class="viewer__text">{tr(s.text, lang)}</p>}
+            </figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+
+    <div class="viewer__controls">
+      {slides.length > 1 && (
+        <>
+          <button class="viewer__btn" type="button" data-step="-1"><Icon name="chevronLeft" size={20} label={tr(ui.previous, lang)} /></button>
+          <button class="viewer__btn" type="button" data-step="1"><Icon name="chevronRight" size={20} label={tr(ui.next, lang)} /></button>
+        </>
+      )}
+      <button class="viewer__btn" type="button" data-close><Icon name="close" size={20} label={tr(ui.close, lang)} /></button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .viewer {
+    width: min(100% - 2 * var(--gutter), 72rem);
+    max-width: none;
+    max-height: min(100% - 2 * var(--gutter), 46rem);
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+  }
+  .viewer[open] { animation: viewer-in var(--dur-2) var(--ease-out); }
+  .viewer::backdrop {
+    background: oklch(15% 0.03 258 / 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  @keyframes viewer-in { from { opacity: 0; transform: translateY(1rem) scale(0.98); } }
+  :global(html:has(.viewer[open])) { overflow: hidden; }
+
+  .viewer__frame {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    height: 100%;
+  }
+  .viewer__rail {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    padding: var(--space-s);
+    overflow-y: auto;
+    scrollbar-width: none;
+    border-right: 1px solid var(--line);
+  }
+  .viewer__thumb {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--bg-sunk);
+    opacity: 0.5;
+    outline-offset: 2px;
+    transition: opacity var(--dur-1) var(--ease-out), box-shadow var(--dur-1) var(--ease-out);
+  }
+  .viewer__thumb :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .viewer__thumb-num { font-weight: var(--w-bold); color: var(--ink-3); font-size: var(--step--1); }
+  .viewer__thumb:hover { opacity: 0.85; }
+  .viewer__thumb[aria-current='true'] { opacity: 1; box-shadow: 0 0 0 2px var(--ink); }
+
+  .viewer__stage { position: relative; min-height: 0; }
+  .viewer__slide {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    height: 100%;
+    margin: 0;
+  }
+  .viewer__slide[hidden] { display: none; }
+  .viewer__slide:not([hidden]) { animation: slide-in var(--dur-2) var(--ease-out); }
+  @keyframes slide-in { from { opacity: 0; } }
+  .viewer__media { min-height: 0; background: var(--bg-sunk); }
+  .viewer__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .viewer__media--empty { display: grid; place-items: center; }
+  .viewer__media--empty span {
+    font-size: var(--step-5);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    color: var(--ink-3);
+  }
+  .viewer__slide:not(:has(figcaption)) { grid-template-columns: minmax(0, 1fr); }
+  .viewer__slide:not(:has(figcaption)) .viewer__media :global(img) { object-fit: contain; background: oklch(12% 0.02 258); }
+  .viewer__caption {
+    display: grid;
+    align-content: center;
+    gap: var(--space-s);
+    padding: var(--space-xl) var(--space-l);
+  }
+  .viewer__title {
+    font-size: var(--step-3);
+    font-weight: var(--w-bold);
+    letter-spacing: var(--track-heading);
+    line-height: 1.1;
+  }
+  .viewer__text { color: var(--ink-2); max-width: 34ch; }
+
+  .viewer__controls {
+    position: absolute;
+    top: var(--space-s);
+    right: var(--space-s);
+    display: flex;
+    gap: var(--space-2xs);
+    z-index: 2;
+  }
+  .viewer__btn {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--r-pill);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-1);
+  }
+  .viewer__btn:hover { border-color: var(--ink); }
+
+  @media (max-width: 48rem) {
+    .viewer { width: 100%; max-height: 100%; height: 100%; border-radius: 0; }
+    .viewer__frame { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
+    .viewer__rail { order: 2; grid-auto-flow: column; justify-content: start; overflow-x: auto; border: 0; border-top: 1px solid var(--line); }
+    .viewer__thumb { width: 3.25rem; height: 3.25rem; }
+    .viewer__slide { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.2fr) auto; }
+    .viewer__caption { padding: var(--space-m) var(--gutter); align-content: start; }
+    .viewer__title { font-size: var(--step-2); }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLDialogElement>('[data-viewer]').forEach((dialog) => {
+    const slides = [...dialog.querySelectorAll<HTMLElement>('[data-slide]')];
+    const thumbs = [...dialog.querySelectorAll<HTMLElement>('[data-go]')];
+    let index = 0;
+    let opener: HTMLElement | null = null;
+
+    const show = (i: number) => {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => (s.hidden = n !== index));
+      thumbs.forEach((t, n) => t.setAttribute('aria-current', String(n === index)));
+      thumbs[index]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    };
+
+    document.querySelectorAll<HTMLElement>(`[data-viewer-open="${dialog.id}"]`).forEach((btn) =>
+      btn.addEventListener('click', () => {
+        opener = btn;
+        show(Number(btn.dataset.index ?? 0));
+        dialog.showModal();
+      }),
+    );
+    thumbs.forEach((t) => t.addEventListener('click', () => show(Number(t.dataset.go))));
+    dialog.querySelectorAll<HTMLElement>('[data-step]').forEach((b) =>
+      b.addEventListener('click', () => show(index + Number(b.dataset.step))),
+    );
+    dialog.querySelector('[data-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('keydown', (e) => {
+      if (slides.length < 2) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
+    });
+    dialog.addEventListener('close', () => opener?.focus());
+  });
+</script>

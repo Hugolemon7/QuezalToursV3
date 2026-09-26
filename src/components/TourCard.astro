@@ -1,0 +1,99 @@
+---
+import Photo from '@/components/Photo.astro';
+import Icon from './Icon.astro';
+import { tourCategories, ui, contact, type Lang, type Tour } from '@/content/site';
+import { tr, href } from '@/lib/i18n';
+import { tourImage } from '@/lib/tours';
+
+interface Props { tour: Tour; lang: Lang; eager?: boolean }
+const { tour, lang, eager = false } = Astro.props;
+const img = tourImage(tour);
+const name = tr(tour.name, lang);
+// Sin página de detalle: la tarjeta abre WhatsApp con el tour ya mencionado.
+const link = tour.hasDetail
+  ? href(`/tours/${tour.slug}`, lang)
+  : `${contact.whatsapp}?text=${encodeURIComponent(`${tr(ui.whatsappTourMsg, lang)}: ${name}`)}`;
+const external = !tour.hasDetail;
+---
+<article class="card">
+  <a class="card__link" href={link} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+    <div class:list={['card__media', { 'card__media--banner': img.fromBanner }]}>
+      <Photo src={img.src} alt={tr(img.alt, lang)} sizes="(max-width: 30rem) 90vw, (max-width: 48rem) 45vw, 330px" widths={[360, 540, 720, 960]} loading={eager ? 'eager' : 'lazy'} />
+      <span class="card__go" aria-hidden="true"><Icon name={external ? 'whatsapp' : 'arrow'} size={18} /></span>
+    </div>
+    <div class="card__body">
+      <p class="card__meta">
+        <span>{tr(tourCategories[tour.category], lang)}</span>
+        <span aria-hidden="true">·</span>
+        <span><Icon name="clock" size={14} /> {tour.duration} {tr(ui.hours, lang)}</span>
+      </p>
+      <h3 class="card__title">{name}</h3>
+      <p class="card__region">
+        {tr(tour.region, lang)}
+        {external && <span class="card__soon"> · {tr(ui.comingSoon, lang)}</span>}
+      </p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .card { height: 100%; }
+  .card__link { display: grid; gap: var(--space-s); text-decoration: none; height: 100%; align-content: start; }
+  .card__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-sunk);
+  }
+  .card__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.1s var(--ease-out);
+  }
+  /* Portada gráfica: la foto del collage está en el centro */
+  .card__media--banner :global(img) { object-position: 50% 50%; transform: scale(1.12); }
+  .card__go {
+    position: absolute;
+    right: var(--space-s);
+    bottom: var(--space-s);
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--r-pill);
+    background: var(--on-photo);
+    color: oklch(25% 0.075 258);
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.9);
+    transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  }
+  .card__body { display: grid; gap: 0.3rem; padding-inline: 0.15rem; }
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45em;
+    font-size: 0.75rem;
+    font-weight: var(--w-medium);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .card__meta span { display: inline-flex; align-items: center; gap: 0.3em; }
+  .card__title {
+    font-size: var(--step-1);
+    font-weight: var(--w-bold);
+    letter-spacing: var(--track-heading);
+    line-height: 1.2;
+  }
+  .card__region { font-size: var(--step--1); color: var(--ink-2); }
+  .card__soon { color: var(--accent-ink); font-weight: var(--w-medium); }
+  @media (hover: hover) {
+    .card__link:hover .card__media :global(img) { transform: scale(1.05); }
+    .card__link:hover .card__media--banner :global(img) { transform: scale(1.17); }
+    .card__link:hover .card__go { opacity: 1; transform: none; }
+  }
+  .card__link:focus-visible { outline-offset: 6px; border-radius: var(--r-lg); }
+</style>

@@ -1,0 +1,8 @@
+---
+import MaskImage from './MaskImage.astro';
+import { site } from '@/content/site';
+// El logo solo existe como webp blanco. TODO(cliente): SVG oficial.
+interface Props { class?: string }
+const { src, width, height } = site.logo;
+---
+<MaskImage class:list={['logo', Astro.props.class]} src={src} width={width} height={height} label={site.name} />

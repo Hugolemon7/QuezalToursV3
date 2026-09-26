@@ -1,0 +1,62 @@
+---
+import Icon from './Icon.astro';
+import { ui, type Lang } from '@/content/site';
+import { tr } from '@/lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  data-label-light={tr(ui.themeLight, lang)}
+  data-label-dark={tr(ui.themeDark, lang)}
+  aria-label={tr(ui.themeDark, lang)}
+>
+  <span class="i i--moon"><Icon name="moon" size={18} /></span>
+  <span class="i i--sun"><Icon name="sun" size={18} /></span>
+</button>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--r-pill);
+    border: 1px solid color-mix(in oklab, currentColor 28%, transparent);
+    transition: border-color var(--dur-1) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .theme-toggle:hover { border-color: currentColor; }
+  }
+  .i {
+    grid-area: 1 / 1;
+    transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+  }
+  .i--sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+  :global([data-theme-resolved='dark']) .i--moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
+  :global([data-theme-resolved='dark']) .i--sun { opacity: 1; transform: none; }
+</style>
+
+<script>
+  // Alterna claro/oscuro y recuerda la elección. El tema inicial lo
+  // resuelve el script en línea de Base.astro (sin parpadeo).
+  const root = document.documentElement;
+  const sync = (btn: HTMLElement) => {
+    const dark = root.dataset.themeResolved === 'dark';
+    btn.setAttribute('aria-label', (dark ? btn.dataset.labelLight : btn.dataset.labelDark) ?? '');
+    btn.setAttribute('aria-pressed', String(dark));
+  };
+  document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((btn) => {
+    sync(btn);
+    btn.addEventListener('click', () => {
+      const next = root.dataset.themeResolved === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      root.dataset.themeResolved = next;
+      try { localStorage.setItem('qt-theme', next); } catch {}
+      document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach(sync);
+    });
+  });
+</script>

@@ -1,0 +1,95 @@
+---
+import Base from '@/layouts/Base.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import PageIntro from '@/components/page/PageIntro.astro';
+import SectionHead from '@/components/SectionHead.astro';
+import TourCard from '@/components/TourCard.astro';
+import { pages, tours, tourCategories, ui, type Lang, type TourCategory } from '@/content/site';
+import { tr, langPaths } from '@/lib/i18n';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const p = pages.tours;
+// Solo las categorías que tienen tours, en el orden del archivo de contenido.
+const cats = (Object.keys(tourCategories) as TourCategory[]).filter((c) => tours.some((t) => t.category === c));
+---
+<Base lang={lang} title={p.meta.title} description={p.meta.description} overHero>
+  <PageHero lang={lang} title={p.hero.title} lead={p.hero.lead} image={p.hero.image} position="50% 30%" />
+  <PageIntro lang={lang} paragraphs={p.description} />
+
+  <section class="section section--sunk" aria-labelledby="catalogo" data-filter-root>
+    <div class="container">
+      <SectionHead id="catalogo" title={`${tours.length} **${tr(ui.toursCount, lang)}**`}>
+        <div class="filters" role="group" aria-label={tr(ui.filterBy, lang)}>
+          <button type="button" class="chip" data-filter="all" aria-pressed="true">{tr(ui.all, lang)}</button>
+          {cats.map((c) => (
+            <button type="button" class="chip" data-filter={c} aria-pressed="false">{tr(tourCategories[c], lang)}</button>
+          ))}
+        </div>
+      </SectionHead>
+      <ul class="grid" role="list" data-filter-grid>
+        {tours.map((tour, i) => (
+          <li data-category={tour.category} data-reveal style={`--d:${i % 4}`}>
+            <TourCard tour={tour} lang={lang} />
+          </li>
+        ))}
+      </ul>
+      <p class="visually-hidden" aria-live="polite" data-filter-status></p>
+    </div>
+  </section>
+
+  <ContactSection lang={lang} />
+</Base>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+  .chip {
+    padding: 0.55rem 1rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    font-size: var(--step--1);
+    font-weight: var(--w-medium);
+    color: var(--ink-2);
+    transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .chip:hover { border-color: var(--ink); color: var(--ink); }
+  .chip[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-xl) clamp(var(--space-s), 2vw, var(--space-l));
+  }
+  .grid li { transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+  .grid li.is-out { display: none; }
+  .grid li.is-entering { opacity: 0; transform: translateY(1rem); }
+  @media (max-width: 64rem) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 48rem) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-l) var(--space-s); } }
+  @media (max-width: 30rem) { .grid { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-filter-root]').forEach((root) => {
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const items = [...root.querySelectorAll<HTMLElement>('[data-category]')];
+    const status = root.querySelector<HTMLElement>('[data-filter-status]');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter!;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        let shown = 0;
+        items.forEach((li) => {
+          const on = f === 'all' || li.dataset.category === f;
+          li.classList.toggle('is-out', !on);
+          li.classList.add('is-in');
+          if (on) {
+            shown++;
+            li.classList.add('is-entering');
+            requestAnimationFrame(() => requestAnimationFrame(() => li.classList.remove('is-entering')));
+          }
+        });
+        if (status) status.textContent = `${shown} ${btn.textContent?.trim()}`;
+      }),
+    );
+  });
+</script>

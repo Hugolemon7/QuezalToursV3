@@ -1,0 +1,27 @@
+# Hostinger (Apache) — sitio estático generado con Astro
+
+# HTTPS obligatorio
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Página 404 propia
+ErrorDocument 404 /404.html
+
+# Compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml text/xml
+</IfModule>
+
+# Caché: los archivos de /_astro/ llevan hash en el nombre, se pueden guardar un año
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|png|jpg|jpeg|svg|woff2|css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <If "%{REQUEST_URI} =~ m#^/_astro/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

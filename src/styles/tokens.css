@@ -1,0 +1,158 @@
+/*
+ * TOKENS — Quetzal Tours
+ * ------------------------------------------------------------------
+ * Color: azul marino de marca como tinta y superficies; turquesa
+ * reservado a la acción (contactar / reservar). Sin amarillo.
+ * Fondo gris azulado frío: las fotos de Oaxaca aportan el color cálido.
+ *
+ * Tipografía: Epilogue (grotesca variable 100–900) para todo; el
+ * carácter editorial sale del contraste de pesos dentro de un mismo
+ * titular (300 ↔ 800). Newsreader itálica como acento puntual.
+ */
+
+:root {
+  /* ---------- Marca (valores fijos, no cambian con el tema) ---------- */
+  --brand-navy: #003573;
+  --brand-teal: #01a99d;
+
+  /* ---------- Tema claro (por defecto) ---------- */
+  --bg: oklch(96.4% 0.009 250);         /* gris azulado */
+  --bg-sunk: oklch(93.2% 0.013 250);    /* bandas alternas */
+  --surface: oklch(99% 0.004 250);      /* tarjetas, modales */
+  --ink: oklch(25% 0.075 258);          /* texto principal: marino profundo */
+  --ink-2: oklch(40% 0.045 258);        /* texto secundario */
+  --ink-3: oklch(50% 0.03 258);         /* meta, etiquetas */
+  --line: oklch(25% 0.075 258 / 0.13);
+  --line-strong: oklch(25% 0.075 258 / 0.28);
+  --accent: oklch(50% 0.1 182);         /* CTA: turquesa profundo (AA con blanco) */
+  --accent-hover: oklch(44% 0.095 182);
+  --on-accent: #fff;
+  --accent-ink: oklch(46% 0.09 182);    /* turquesa como texto/enlace */
+  --focus: oklch(50% 0.1 182);
+  --scrim: oklch(18% 0.04 258 / 0.55);  /* velo sobre fotos */
+  --on-photo: #fff;
+  --glass: oklch(99% 0.004 250 / 0.62);
+  --footer-bg: oklch(25% 0.075 258);
+  color-scheme: light;
+
+  /* ---------- Tipografía ---------- */
+  --font-sans: 'Epilogue Variable', 'Epilogue', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader Variable', 'Newsreader', ui-serif, Georgia, serif;
+
+  --w-light: 300;
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-bold: 800;
+
+  /* Escala fluida 360px → 1440px */
+  --step--1: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-0: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
+  --step-1: clamp(1.125rem, 1.08rem + 0.2vw, 1.25rem);
+  --step-2: clamp(1.375rem, 1.25rem + 0.55vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.5rem + 1.1vw, 2.5rem);
+  --step-4: clamp(2.25rem, 1.75rem + 2.2vw, 3.75rem);
+  --step-5: clamp(2.75rem, 1.9rem + 3.8vw, 5.5rem);
+  --step-hero: clamp(3.5rem, 1.6rem + 8.5vw, 10rem);
+
+  --lh-tight: 0.95;
+  --lh-snug: 1.12;
+  --lh-body: 1.6;
+
+  --track-display: -0.04em;
+  --track-heading: -0.025em;
+  --track-label: 0.08em;
+
+  /* ---------- Espacio (base 4px; secciones fluidas) ---------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-section: clamp(4.5rem, 3rem + 6vw, 9rem);
+
+  /* ---------- Layout ---------- */
+  --page-max: 90rem;                       /* 1440px */
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --measure: 64ch;
+  --header-h: 3.5rem;
+
+  /* ---------- Forma (nada de esquinas cuadradas) ---------- */
+  --r-sm: 0.5rem;
+  --r-md: 0.875rem;
+  --r-lg: 1.375rem;
+  --r-pill: 999px;
+
+  /* ---------- Elevación ---------- */
+  --shadow-1: 0 1px 2px oklch(25% 0.075 258 / 0.06), 0 2px 8px oklch(25% 0.075 258 / 0.05);
+  --shadow-2: 0 8px 30px oklch(25% 0.075 258 / 0.12);
+
+  /* ---------- Movimiento: elegante, ligeramente expresivo ---------- */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* salida larga y suave */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 180ms;   /* hover, foco */
+  --dur-2: 450ms;   /* cambios de estado, menú */
+  --dur-3: 900ms;   /* entradas de sección */
+  --reveal-distance: 2.5rem;
+
+  /* ---------- Capas ---------- */
+  --z-header: 50;
+  --z-modal: 100;
+}
+
+/* ---------- Tema oscuro ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: oklch(17% 0.035 258);
+    --bg-sunk: oklch(14.5% 0.03 258);
+    --surface: oklch(21.5% 0.04 258);
+    --ink: oklch(95% 0.008 250);
+    --ink-2: oklch(82% 0.02 250);
+    --ink-3: oklch(70% 0.025 250);
+    --line: oklch(95% 0.008 250 / 0.13);
+    --line-strong: oklch(95% 0.008 250 / 0.28);
+    --accent: oklch(72% 0.12 182);
+    --accent-hover: oklch(78% 0.11 182);
+    --on-accent: oklch(17% 0.035 258);
+    --accent-ink: oklch(78% 0.11 182);
+    --focus: oklch(78% 0.11 182);
+    --scrim: oklch(10% 0.03 258 / 0.6);
+    --glass: oklch(21.5% 0.04 258 / 0.62);
+    --footer-bg: oklch(12% 0.03 258);
+    --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.3), 0 2px 8px oklch(0% 0 0 / 0.25);
+    --shadow-2: 0 8px 30px oklch(0% 0 0 / 0.45);
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: oklch(17% 0.035 258);
+  --bg-sunk: oklch(14.5% 0.03 258);
+  --surface: oklch(21.5% 0.04 258);
+  --ink: oklch(95% 0.008 250);
+  --ink-2: oklch(82% 0.02 250);
+  --ink-3: oklch(70% 0.025 250);
+  --line: oklch(95% 0.008 250 / 0.13);
+  --line-strong: oklch(95% 0.008 250 / 0.28);
+  --accent: oklch(72% 0.12 182);
+  --accent-hover: oklch(78% 0.11 182);
+  --on-accent: oklch(17% 0.035 258);
+  --accent-ink: oklch(78% 0.11 182);
+  --focus: oklch(78% 0.11 182);
+  --scrim: oklch(10% 0.03 258 / 0.6);
+  --glass: oklch(21.5% 0.04 258 / 0.62);
+  --footer-bg: oklch(12% 0.03 258);
+  --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.3), 0 2px 8px oklch(0% 0 0 / 0.25);
+  --shadow-2: 0 8px 30px oklch(0% 0 0 / 0.45);
+  color-scheme: dark;
+}
+
+/* ---------- Movimiento reducido: sin desplazamientos ---------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-2: 1ms;
+    --dur-3: 1ms;
+    --reveal-distance: 0px;
+  }
+}

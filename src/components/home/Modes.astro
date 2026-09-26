@@ -1,0 +1,63 @@
+---
+import Photo from '@/components/Photo.astro';
+/** MODALIDADES DE VIAJE: tres formas de viajar, con foto, número y texto. */
+import SectionHead from '../SectionHead.astro';
+import { pages, type Lang } from '@/content/site';
+import { tr } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const m = pages.home.modes;
+---
+<section class="modes section section--sunk" aria-labelledby="modos-titulo">
+  <div class="container">
+    <SectionHead id="modos-titulo" kicker={tr(m.kicker, lang)} title={tr(m.title, lang)} />
+    <ol class="modes__list" role="list">
+      {m.items.map((item, i) => (
+        <li class="mode" data-reveal style={`--d:${i}`}>
+          <div class="mode__media">
+            <Photo src={item.image.src} alt={tr(item.image.alt, lang)} sizes="(max-width: 56rem) 92vw, 30vw" widths={[480, 720, 960]} />
+          </div>
+          <p class="mode__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="mode__title">{tr(item.title, lang)}</h3>
+          <p class="mode__text">{tr(item.text, lang)}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .modes__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(var(--space-m), 3vw, var(--space-xl));
+  }
+  .mode { display: grid; gap: var(--space-2xs); align-content: start; }
+  .mode__media {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: var(--space-s);
+  }
+  .mode__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.1s var(--ease-out);
+  }
+  @media (hover: hover) {
+    .mode:hover .mode__media :global(img) { transform: scale(1.04); }
+  }
+  .mode__num { font-size: var(--step--1); font-weight: var(--w-medium); color: var(--ink-3); letter-spacing: var(--track-label); }
+  .mode__title { font-size: var(--step-2); }
+  .mode__text { color: var(--ink-2); max-width: 36ch; }
+  /* Escalón editorial: la tarjeta central baja un poco en escritorio */
+  @media (min-width: 56.01rem) {
+    .mode:nth-child(2) { margin-top: var(--space-2xl); }
+  }
+  @media (max-width: 56rem) {
+    .modes__list { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+    .mode__media { aspect-ratio: 4 / 3; }
+  }
+</style>

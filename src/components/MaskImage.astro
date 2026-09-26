@@ -1,0 +1,31 @@
+---
+/**
+ * Imagen monocroma pintada con `currentColor` vía máscara CSS.
+ * Para logos que solo existen en blanco con transparencia.
+ */
+interface Props {
+  src: string;
+  width: number;
+  height: number;
+  label: string;
+  class?: string;
+}
+const { src, width, height, label, class: cls } = Astro.props;
+---
+<span
+  class:list={['mask-img', cls]}
+  role="img"
+  aria-label={label}
+  style={`--mask-src:url("${src}");--mask-ratio:${width}/${height}`}
+></span>
+
+<style>
+  .mask-img {
+    display: block;
+    height: 2rem;
+    aspect-ratio: var(--mask-ratio);
+    background: currentColor;
+    -webkit-mask: var(--mask-src) center / contain no-repeat;
+    mask: var(--mask-src) center / contain no-repeat;
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+/**
+ * CIERRE + CONTACTO — la única acción importante del sitio.
+ * Canales directos (WhatsApp primero), formulario opcional y aliados
+ * como prueba de confianza justo antes de actuar.
+ */
+import Icon from './Icon.astro';
+import MaskImage from './MaskImage.astro';
+import ContactForm from './ContactForm.astro';
+import { contact, partners, ui, type Lang } from '@/content/site';
+import { tr, rich } from '@/lib/i18n';
+
+interface Props {
+  lang: Lang;
+  /** Muestra el formulario (páginas de tour). */
+  form?: boolean;
+  /** Asunto precargado del formulario, p. ej. el nombre del tour. */
+  subject?: string;
+}
+const { lang, form = false, subject } = Astro.props;
+const whatsapp = contact.phones.find((p) => 'whatsapp' in p)!;
+const phone = contact.phones.find((p) => !('whatsapp' in p))!;
+const channels = [
+  { icon: 'whatsapp', label: ui.whatsapp, value: whatsapp.label, href: whatsapp.href, external: true },
+  { icon: 'phone', label: ui.callUs, value: phone.label, href: phone.href, external: false },
+  { icon: 'mail', label: ui.email, value: contact.email, href: contact.emailHref, external: false },
+] as const;
+---
+<section id="contacto" class:list={['contact section', { 'contact--form': form }]} aria-labelledby="contacto-titulo">
+  <div class="container contact__grid">
+    <div class="contact__intro">
+      <p class="kicker" data-reveal>{tr(ui.contactKicker, lang)}</p>
+      <h2 id="contacto-titulo" class="display" data-reveal style="--d:1" set:html={rich(tr(ui.contactTitle, lang))} />
+    </div>
+
+    <ul class="contact__channels" role="list">
+      {channels.map((c, i) => (
+        <li data-reveal style={`--d:${i + 2}`}>
+          <a
+            class="channel"
+            href={c.href}
+            target={c.external ? '_blank' : undefined}
+            rel={c.external ? 'noopener' : undefined}
+          >
+            <span class="channel__icon"><Icon name={c.icon} size={22} /></span>
+            <span class="channel__text">
+              <span class="channel__label">{tr(c.label, lang)}</span>
+              <span class="channel__value" set:html={c.value.replace('@', '@<wbr>')} />
+            </span>
+            <span class="channel__arrow"><Icon name="arrow" size={20} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {form && (
+      <div class="contact__form" data-reveal style="--d:2">
+        <ContactForm lang={lang} subject={subject} />
+      </div>
+    )}
+  </div>
+
+  <div class="container partners" data-reveal>
+    <p class="kicker">{tr(ui.partnersTitle, lang)}</p>
+    <ul class="partners__list" role="list">
+      {partners.map((p) => (
+        <li><MaskImage class="partners__logo" src={p.src} width={p.width} height={p.height} label={p.name} /></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact { border-top: 1px solid var(--line); }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-l);
+    row-gap: var(--space-xl);
+    align-items: end;
+  }
+  .contact__intro { grid-column: 1 / span 6; display: grid; gap: var(--space-m); }
+  .contact__intro .display { font-size: var(--step-5); max-width: 12ch; }
+  .contact__channels { grid-column: 8 / -1; }
+
+  /* Con formulario: título arriba a todo el ancho; canales | formulario */
+  .contact--form .contact__grid { align-items: start; }
+  .contact--form .contact__intro { grid-column: 1 / -1; }
+  .contact--form .contact__intro .display { max-width: 16ch; }
+  .contact--form .contact__channels { grid-column: 1 / span 5; }
+  .contact--form .contact__form { grid-column: 7 / -1; }
+
+  /* Canal: fila grande con subrayado de línea */
+  .channel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-m);
+    padding-block: var(--space-m);
+    border-top: 1px solid var(--line-strong);
+    text-decoration: none;
+  }
+  li:last-child .channel { border-bottom: 1px solid var(--line-strong); }
+  .channel__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out);
+  }
+  .channel__text { display: grid; gap: 0.15rem; min-width: 0; }
+  .channel__label { font-size: var(--step--1); color: var(--ink-3); }
+  .channel__value {
+    font-size: var(--step-2);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-heading);
+    line-height: 1.15;
+    overflow-wrap: break-word;
+    transition: font-weight var(--dur-2) var(--ease-out);
+  }
+  .channel__arrow {
+    color: var(--ink-3);
+    transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .channel:hover .channel__icon {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--on-accent);
+    }
+    .channel:hover .channel__value { font-weight: var(--w-regular); }
+    .channel:hover .channel__arrow { transform: translateX(0.35rem); color: var(--ink); }
+  }
+  /* WhatsApp: canal principal, siempre con el color de acción */
+  li:first-child .channel__icon {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .contact__form {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: clamp(var(--space-m), 3vw, var(--space-xl));
+    box-shadow: var(--shadow-1);
+  }
+
+  /* Aliados */
+  .partners {
+    margin-top: var(--space-2xl);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m) var(--space-xl);
+  }
+  .partners__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m) var(--space-xl);
+    color: var(--ink-3);
+  }
+  .partners__list :global(.partners__logo) { height: 2.25rem; max-width: 8rem; }
+
+  @media (max-width: 56rem) {
+    .contact__grid { grid-template-columns: minmax(0, 1fr); }
+    .contact__intro,
+    .contact__channels,
+    .contact--form .contact__channels,
+    .contact--form .contact__form { grid-column: 1 / -1; }
+    .channel__value { font-size: var(--step-1); }
+  }
+</style>

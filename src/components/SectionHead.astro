@@ -1,0 +1,33 @@
+---
+/** Cabecera editorial de sección: kicker + titular a la izquierda, entradilla y acción a la derecha. */
+import { rich } from '@/lib/i18n';
+interface Props { kicker?: string; title: string; lead?: string; id?: string }
+const { kicker, title, lead, id } = Astro.props;
+---
+<header class="shead">
+  <div class="shead__main">
+    {kicker && <p class="kicker" data-reveal>{kicker}</p>}
+    <h2 class="h2" id={id} data-reveal style="--d:1" set:html={rich(title)} />
+  </div>
+  {(lead || Astro.slots.has('default')) && (
+    <div class="shead__aside" data-reveal style="--d:2">
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
+  )}
+</header>
+
+<style>
+  .shead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: end;
+    gap: var(--space-l) var(--space-xl);
+    margin-bottom: clamp(var(--space-l), 4vw, var(--space-2xl));
+  }
+  .shead__main { display: grid; gap: var(--space-s); }
+  .shead__aside { display: grid; gap: var(--space-m); justify-items: start; }
+  @media (max-width: 48rem) {
+    .shead { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

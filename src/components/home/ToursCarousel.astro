@@ -1,0 +1,176 @@
+---
+/**
+ * CARRUSEL DE TOURS
+ * Desplazamiento nativo con imán (táctil, trackpad, teclado) + flechas,
+ * arrastre con ratón y barra de progreso. Las tarjetas sangran hacia el
+ * borde derecho para invitar a seguir mirando.
+ */
+import Icon from '../Icon.astro';
+import TourCard from '../TourCard.astro';
+import SectionHead from '../SectionHead.astro';
+import { pages, getTour, ui, type Lang, type Tour } from '@/content/site';
+import { tr, href } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = pages.home.tours;
+const items = s.featured.map(getTour).filter((x): x is Tour => Boolean(x));
+const prevLabel = tr(ui.prevTours, lang);
+const nextLabel = tr(ui.nextTours, lang);
+---
+<section class="tours section" aria-labelledby="tours-titulo" data-carousel>
+  <div class="container">
+    <SectionHead id="tours-titulo" kicker={tr(s.kicker, lang)} title={tr(s.title, lang)} lead={tr(s.lead, lang)}>
+      <div class="tours__actions">
+        <a class="btn" href={href(s.cta.href, lang)}>{tr(s.cta.label, lang)} <Icon name="arrow" /></a>
+        <div class="tours__arrows">
+          <button class="arrow" type="button" data-prev aria-label={prevLabel}>
+            <Icon name="arrow" size={18} />
+          </button>
+          <button class="arrow" type="button" data-next aria-label={nextLabel}>
+            <Icon name="arrow" size={18} />
+          </button>
+        </div>
+      </div>
+    </SectionHead>
+  </div>
+
+  <ul class="tours__track" role="list" data-track data-reveal-group tabindex="0" aria-label={tr(s.title, lang).replace(/\*/g, '')}>
+    {items.map((tour, i) => (
+      <li class="tours__item" data-reveal style={`--d:${Math.min(i, 4)}`}>
+        <TourCard tour={tour} lang={lang} />
+      </li>
+    ))}
+  </ul>
+
+  <div class="container">
+    <div class="tours__progress" aria-hidden="true"><span data-progress></span></div>
+  </div>
+</section>
+
+<style>
+  .tours { overflow: hidden; }
+  .tours__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-m); }
+  .tours__arrows { display: flex; gap: var(--space-2xs); }
+  .arrow {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out),
+      opacity var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  [data-prev] :global(svg) { transform: rotate(180deg); }
+  @media (hover: hover) {
+    .arrow:not(:disabled):hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  }
+  .arrow:disabled { opacity: 0.3; cursor: default; }
+
+  .tours__track {
+    --edge: max(var(--gutter), calc((100vw - var(--page-max)) / 2 + var(--gutter)));
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(15.5rem, 22vw, 20.5rem);
+    gap: clamp(var(--space-s), 2vw, var(--space-l));
+    padding-inline: var(--edge);
+    scroll-padding-inline: var(--edge);
+    overflow-x: auto;
+    overflow-y: hidden; /* solo desplazamiento horizontal */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Aire para el anillo de foco sin generar scroll vertical */
+    padding-block: 0.5rem;
+    margin-block: -0.5rem;
+  }
+  .tours__track::-webkit-scrollbar { display: none; }
+  .tours__track:focus-visible { outline-offset: -2px; }
+  .tours__track.is-dragging { scroll-snap-type: none; cursor: grabbing; }
+  .tours__track.is-dragging :global(a) { pointer-events: none; }
+  .tours__item { scroll-snap-align: start; }
+  /* Dentro de la pista la entrada es solo de opacidad: un desplazamiento
+     vertical haría crecer la pista y aparecería un scroll vertical. */
+  :global(.js) .tours__track [data-reveal] { transform: none; }
+
+  .tours__progress {
+    position: relative;
+    height: 2px;
+    margin-top: var(--space-xl);
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .tours__progress span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--thumb, 30%);
+    background: var(--ink);
+    border-radius: inherit;
+    transform: translateX(var(--x, 0%));
+    transition: transform var(--dur-1) linear;
+  }
+  @media (max-width: 40rem) {
+    .tours__track { grid-auto-columns: 78%; }
+    .tours__arrows { display: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]');
+    const bar = root.querySelector<HTMLElement>('[data-progress]');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+    const step = () => {
+      const item = track.querySelector<HTMLElement>('li');
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return item ? item.offsetWidth + gap : track.clientWidth * 0.8;
+    };
+    const go = (dir: number) =>
+      track.scrollBy({ left: dir * step(), behavior: reduce.matches ? 'auto' : 'smooth' });
+    prev?.addEventListener('click', () => go(-1));
+    next?.addEventListener('click', () => go(1));
+
+    const sync = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const ratio = max > 0 ? track.scrollLeft / max : 0;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max - 2;
+      if (bar) {
+        const thumb = Math.max((track.clientWidth / track.scrollWidth) * 100, 12);
+        bar.style.setProperty('--thumb', `${thumb}%`);
+        bar.style.setProperty('--x', `${ratio * (100 / thumb) * (100 - thumb)}%`);
+      }
+    };
+    track.addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync);
+    sync();
+
+    // Arrastre con ratón (el táctil ya es nativo)
+    let startX = 0, startLeft = 0, moved = false, down = false;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+    });
+    addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 6) { moved = true; track.classList.add('is-dragging'); }
+      if (moved) track.scrollLeft = startLeft - dx;
+    });
+    addEventListener('pointerup', () => {
+      if (!down) return;
+      down = false;
+      if (!moved) return;
+      track.classList.remove('is-dragging');
+      // Reengancha al imán más cercano
+      const s = step();
+      track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: reduce.matches ? 'auto' : 'smooth' });
+    });
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+  });
+</script>

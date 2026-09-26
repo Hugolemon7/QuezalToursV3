@@ -1,0 +1,139 @@
+---
+import Photo from '@/components/Photo.astro';
+import Base from '@/layouts/Base.astro';
+import Icon from '@/components/Icon.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import PageIntro from '@/components/page/PageIntro.astro';
+import { pages, packages, ui, contact, type Lang } from '@/content/site';
+import { tr, langPaths } from '@/lib/i18n';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const p = pages.paquetes;
+const wa = (name: string) =>
+  `${contact.whatsapp}?text=${encodeURIComponent(`${tr(ui.whatsappPackageMsg, lang)}: ${name}`)}`;
+// El paquete con ficha completa va primero y a todo el ancho.
+const sorted = [...packages].sort((a, b) => Number(b.hasDetail) - Number(a.hasDetail));
+const dates = (d?: { es: string }) => (d && !d.es.startsWith('TODO') ? d : undefined);
+---
+<Base lang={lang} title={p.meta.title} description={p.meta.description} overHero>
+  <PageHero lang={lang} title={p.hero.title} lead={p.hero.lead} image={p.hero.image} position="50% 35%" />
+  <PageIntro lang={lang} paragraphs={p.description} />
+
+  <section class="section section--sunk" aria-label={tr(p.meta.title, lang)}>
+    <div class="container">
+    <ul class="pkgs" role="list">
+      {sorted.map((pkg, i) => {
+        const name = tr(pkg.name, lang);
+        const d = dates(pkg.dates);
+        return (
+          <li class:list={['pkg', pkg.hasDetail ? 'pkg--featured' : 'pkg--card']} data-reveal style={`--d:${i}`}>
+            {pkg.cover && (
+              <div class="pkg__media">
+                <Photo src={pkg.cover.src} alt={tr(pkg.cover.alt, lang)} sizes={pkg.hasDetail ? '(max-width: 56rem) 92vw, 55vw' : '(max-width: 56rem) 92vw, 30vw'} widths={[480, 720, 960, 1280]} />
+              </div>
+            )}
+            <div class="pkg__body">
+              <p class="pkg__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+              <h2 class="pkg__title">{name}</h2>
+              {d && <p class="pkg__dates">{tr(d, lang)}</p>}
+              {pkg.summary && <p class="pkg__summary">{tr(pkg.summary, lang)}</p>}
+              {pkg.includes && (
+                <ul class="pkg__includes" role="list">
+                  {pkg.includes.map((x) => <li>{tr(x, lang)}</li>)}
+                </ul>
+              )}
+              <div class="pkg__actions">
+                {pkg.hasDetail ? (
+                  <>
+                    <a class="btn btn--primary" href="#contacto">{tr(ui.moreInfo, lang)} <Icon name="arrow" /></a>
+                    <a class="btn" href={wa(name)} target="_blank" rel="noopener"><Icon name="whatsapp" /> {tr(ui.askWhatsapp, lang)}</a>
+                  </>
+                ) : (
+                  <a class="pkg__link" href={wa(name)} target="_blank" rel="noopener">
+                    <Icon name="whatsapp" size={18} /> {tr(ui.askAvailability, lang)} <Icon name="arrow" size={18} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+    </div>
+  </section>
+
+  <ContactSection lang={lang} />
+</Base>
+
+<style>
+  .pkgs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(var(--space-s), 2vw, var(--space-l));
+  }
+  .pkg {
+    display: grid;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  /* Destacado: ocupa todo el ancho, foto + ficha */
+  .pkg--featured { grid-column: 1 / -1; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .pkg--featured .pkg__media { min-height: 24rem; }
+  .pkg__media { overflow: hidden; }
+  .pkg__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease-out); }
+  .pkg--featured .pkg__media :global(img) { object-position: 62% 40%; }
+  .pkg--card { grid-template-rows: auto 1fr; transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+  .pkg--card .pkg__media { aspect-ratio: 4 / 3; }
+  .pkg__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-s);
+    padding: clamp(var(--space-l), 3vw, var(--space-xl));
+  }
+  .pkg--featured .pkg__body { justify-content: center; gap: var(--space-m); }
+  .pkg--featured .pkg__actions { margin-top: var(--space-2xs); }
+  .pkg__num { font-size: var(--step--1); font-weight: var(--w-medium); letter-spacing: var(--track-label); color: var(--ink-3); }
+  .pkg__title {
+    font-size: var(--step-3);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 1.05;
+  }
+  .pkg--featured .pkg__title { font-size: var(--step-4); }
+  .pkg__dates { font-weight: var(--w-medium); }
+  .pkg__summary { color: var(--ink-2); max-width: 44ch; }
+  .pkg__includes { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+  .pkg__includes li {
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+  .pkg__actions { display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: auto; }
+  .pkg__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-weight: 650;
+    font-size: var(--step--1);
+    text-decoration: none;
+    color: var(--accent-ink);
+  }
+  .pkg__link :global(svg:last-child) { transition: transform var(--dur-2) var(--ease-out); }
+  @media (hover: hover) {
+    .pkg--card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+    .pkg--card:hover .pkg__media :global(img) { transform: scale(1.04); }
+    .pkg--card:hover .pkg__link :global(svg:last-child) { transform: translateX(0.3rem); }
+  }
+  @media (max-width: 56rem) {
+    .pkgs { grid-template-columns: minmax(0, 1fr); }
+    .pkg--featured { grid-template-columns: minmax(0, 1fr); }
+    .pkg--featured .pkg__media { min-height: 0; aspect-ratio: 4 / 3; }
+  }
+</style>

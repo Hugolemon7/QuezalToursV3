@@ -1,0 +1,142 @@
+---
+/**
+ * Formulario de contacto.
+ * - Con `contact.formEndpoint`: envía por POST (fetch) y muestra el resultado.
+ * - Sin endpoint (hosting estático): abre el correo del visitante con el
+ *   mensaje ya redactado para reservas@. Así nunca se pierde un contacto.
+ */
+import Icon from './Icon.astro';
+import { contact, ui, type Lang } from '@/content/site';
+import { tr } from '@/lib/i18n';
+
+interface Props { lang: Lang; subject?: string }
+const { lang, subject = '' } = Astro.props;
+const f = ui.form;
+const req = tr(f.required, lang);
+---
+<form
+  class="form"
+  novalidate
+  data-contact-form
+  data-endpoint={contact.formEndpoint ?? ''}
+  data-email={contact.email}
+  data-msg-name={tr(f.invalidName, lang)}
+  data-msg-email={tr(f.invalidEmail, lang)}
+  data-msg-ok={tr(f.success, lang)}
+  data-msg-error={tr(f.error, lang)}
+  data-msg-sending={tr(f.sending, lang)}
+  data-default-subject={tr(ui.defaultSubject, lang)}
+>
+  <p class="h3 form__title">{tr(f.title, lang)}</p>
+
+  <div class="field">
+    <label for="cf-name">{tr(f.name, lang)} <span class="field__req">({req})</span></label>
+    <input id="cf-name" name="nombre" type="text" autocomplete="name" required aria-describedby="cf-name-err" />
+    <p class="field__error" id="cf-name-err" aria-live="polite"></p>
+  </div>
+  <div class="field">
+    <label for="cf-email">{tr(f.email, lang)} <span class="field__req">({req})</span></label>
+    <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="cf-email-err" />
+    <p class="field__error" id="cf-email-err" aria-live="polite"></p>
+  </div>
+  <div class="field">
+    <label for="cf-subject">{tr(f.subject, lang)}</label>
+    <input id="cf-subject" name="asunto" type="text" value={subject} />
+  </div>
+  <div class="field">
+    <label for="cf-message">{tr(f.message, lang)}</label>
+    <textarea id="cf-message" name="mensaje" rows="4"></textarea>
+  </div>
+
+  <div class="form__actions">
+    <button class="btn btn--primary" type="submit">{tr(f.submit, lang)} <Icon name="arrow" /></button>
+    {!contact.formEndpoint && <p class="meta">{tr(f.mailtoNote, lang)}</p>}
+  </div>
+  <p class="form__status" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+  .form { display: grid; gap: var(--space-m); }
+  .form__title { font-weight: var(--w-bold); }
+  .field { display: grid; gap: var(--space-2xs); }
+  .field label { font-size: var(--step--1); font-weight: var(--w-medium); }
+  .field__req { color: var(--ink-3); font-weight: var(--w-regular); }
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line-strong);
+    background: var(--bg);
+    color: var(--ink);
+    transition: border-color var(--dur-1) var(--ease-out), box-shadow var(--dur-1) var(--ease-out);
+  }
+  .field textarea { resize: vertical; min-height: 7rem; }
+  .field input:hover,
+  .field textarea:hover { border-color: var(--ink-3); }
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: none;
+    border-color: var(--focus);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--focus) 25%, transparent);
+  }
+  .field input[aria-invalid='true'] { border-color: oklch(55% 0.18 28); }
+  .field__error { font-size: var(--step--1); color: oklch(52% 0.18 28); min-height: 0; }
+  .field__error:empty { display: none; }
+  :global([data-theme-resolved='dark']) .field__error { color: oklch(75% 0.14 28); }
+  .form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-m); }
+  .form__actions .meta { max-width: 28ch; }
+  .form__status { font-weight: var(--w-medium); }
+  .form__status:empty { display: none; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach((form) => {
+    const d = form.dataset;
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+    const check = (input: HTMLInputElement, msg: string) => {
+      const err = form.querySelector<HTMLElement>(`#${input.id}-err`);
+      const ok = input.value.trim() !== '' && input.checkValidity();
+      input.setAttribute('aria-invalid', String(!ok));
+      if (err) err.textContent = ok ? '' : msg;
+      return ok;
+    };
+    const name = form.querySelector<HTMLInputElement>('#cf-name')!;
+    const email = form.querySelector<HTMLInputElement>('#cf-email')!;
+    name.addEventListener('blur', () => name.value && check(name, d.msgName!));
+    email.addEventListener('blur', () => email.value && check(email, d.msgEmail!));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const okName = check(name, d.msgName!);
+      const okEmail = check(email, d.msgEmail!);
+      if (!okName || !okEmail) {
+        (okName ? email : name).focus();
+        return;
+      }
+      const data = new FormData(form);
+
+      if (!d.endpoint) {
+        const body = `${data.get('mensaje') ?? ''}\n\n— ${data.get('nombre')} (${data.get('email')})`;
+        const subject = String(data.get('asunto') || d.defaultSubject);
+        location.href = `mailto:${d.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = d.msgSending!;
+      try {
+        const res = await fetch(d.endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = d.msgOk!;
+      } catch {
+        status.textContent = d.msgError!;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

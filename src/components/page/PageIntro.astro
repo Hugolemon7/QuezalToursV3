@@ -1,0 +1,46 @@
+---
+/**
+ * DESCRIPCIÓN DE PÁGINA
+ * El primer párrafo funciona como entradilla grande; el resto, en columna
+ * de lectura a la derecha.
+ */
+import type { Lang, Text } from '@/content/site';
+import { tr, rich } from '@/lib/i18n';
+
+interface Props { lang: Lang; paragraphs: readonly Text[] }
+const { lang, paragraphs } = Astro.props;
+const [first, ...rest] = paragraphs;
+---
+<section class="pintro section">
+  <div class="container pintro__grid">
+    {first && <p class="pintro__lead" data-reveal set:html={rich(tr(first, lang))} />}
+    {rest.length > 0 && (
+      <div class="prose pintro__rest" data-reveal style="--d:1">
+        {rest.map((p) => <p set:html={rich(tr(p, lang))} />)}
+        <slot />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .pintro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-xl) clamp(var(--space-xl), 6vw, 6rem);
+    align-items: start;
+  }
+  .pintro__lead {
+    font-size: var(--step-2);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-heading);
+    line-height: 1.2;
+    text-wrap: pretty;
+  }
+  .pintro__lead :global(strong) { font-weight: var(--w-bold); }
+  .pintro__rest { padding-top: 0.5rem; }
+  @media (max-width: 56rem) {
+    .pintro__grid { grid-template-columns: minmax(0, 1fr); }
+    .pintro__lead { font-size: var(--step-1); }
+  }
+</style>

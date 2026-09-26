@@ -1,0 +1,137 @@
+---
+/**
+ * PIE — bloque azul marino en ambos temas: cierra la página con la marca.
+ * Firma final: el hashtag de la marca a todo el ancho, con juego de pesos.
+ */
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav, contact, ui, site, type Lang } from '@/content/site';
+import { tr, href, rich } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const socialIcon = { Instagram: 'instagram', Facebook: 'facebook', X: 'x' } as const;
+---
+<footer class="ft">
+  <div class="container ft__grid">
+    <div class="ft__brand">
+      <Logo />
+      <p class="ft__legal-name">{site.legalName}</p>
+    </div>
+
+    <nav class="ft__col" aria-labelledby="ft-explora">
+      <p class="ft__title" id="ft-explora">{tr(ui.explore, lang)}</p>
+      <ul role="list">
+        {nav.map((item) => <li><a href={href(item.href, lang)}>{tr(item.label, lang)}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="ft__col">
+      <p class="ft__title">{tr(ui.contactTitleShort, lang)}</p>
+      <ul role="list">
+        {contact.phones.map((p) => (
+          <li>
+            <a href={p.href} target={'whatsapp' in p ? '_blank' : undefined} rel={'whatsapp' in p ? 'noopener' : undefined}>
+              {'whatsapp' in p ? `WhatsApp ${p.label}` : p.label}
+            </a>
+          </li>
+        ))}
+        <li><a href={contact.emailHref} set:html={contact.email.replace('@', '@<wbr>')} /></li>
+      </ul>
+    </div>
+
+    <div class="ft__col">
+      <p class="ft__title">{tr(ui.followUs, lang)}</p>
+      <ul class="ft__social" role="list">
+        {contact.social.map((s) => (
+          <li>
+            <a href={s.href} target="_blank" rel="noopener" aria-label={s.name}>
+              <Icon name={socialIcon[s.name as keyof typeof socialIcon]} size={22} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <p class="ft__sign container" aria-hidden="true" set:html={rich(site.signature)} />
+
+  <div class="container ft__bottom">
+    <p>© {year} {tr(ui.copyright, lang)}</p>
+    <a class="ft__top" href="#contenido">
+      {tr(ui.backToTop, lang)} <Icon name="arrowUp" size={16} />
+    </a>
+  </div>
+</footer>
+
+<style>
+  .ft {
+    --ft-ink: oklch(95% 0.008 250);
+    --ft-ink-2: oklch(95% 0.008 250 / 0.7);
+    --ft-line: oklch(95% 0.008 250 / 0.16);
+    background: var(--footer-bg);
+    color: var(--ft-ink);
+    padding-top: var(--space-2xl);
+    overflow: hidden;
+  }
+  .ft a { text-decoration: none; transition: opacity var(--dur-1) var(--ease-out); }
+  .ft a:hover { opacity: 0.7; }
+  .ft :focus-visible { outline-color: var(--ft-ink); }
+  .ft__grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl) var(--space-l);
+  }
+  .ft__brand :global(.logo) { height: 3.5rem; }
+  .ft__legal-name { margin-top: var(--space-s); color: var(--ft-ink-2); font-size: var(--step--1); }
+  .ft__title {
+    font-size: var(--step--1);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ft-ink-2);
+    margin-bottom: var(--space-s);
+  }
+  .ft__col ul { display: grid; gap: var(--space-2xs); }
+  .ft__social { display: flex !important; gap: var(--space-s) !important; }
+  .ft__social a {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--ft-line);
+  }
+
+  /* Firma: el hashtag ocupa el ancho de la página */
+  .ft__sign {
+    margin-top: var(--space-2xl);
+    font-size: clamp(1.5rem, 8.3vw, 8.25rem);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .ft__sign strong { font-weight: var(--w-bold); }
+
+  .ft__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s) var(--space-l);
+    margin-top: var(--space-l);
+    padding-block: var(--space-m);
+    border-top: 1px solid var(--ft-line);
+    font-size: var(--step--1);
+    color: var(--ft-ink-2);
+  }
+  .ft__top { margin-inline-start: auto; display: inline-flex; align-items: center; gap: 0.4em; }
+
+  @media (max-width: 56rem) {
+    .ft__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ft__brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 36rem) {
+    .ft__grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

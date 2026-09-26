@@ -1,0 +1,201 @@
+---
+/**
+ * PORTADA — ref. Vita
+ * Tres capas sobre la misma foto: cielo + sierra (fondo), la palabra
+ * gigante "Oaxaca", y la sierra recortada (frente) que tapa la parte baja
+ * de la palabra. Las capas viven en un lienzo 3:2 que cubre la pantalla,
+ * así la palabra siempre queda anclada a la línea de la sierra.
+ * Entrada escalonada al cargar; parallax suave por capa al hacer scroll.
+ */
+import Icon from '../Icon.astro';
+import { pages, type Lang } from '@/content/site';
+import { tr, rich, href } from '@/lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const h = pages.home.hero;
+const L = h.layers;
+const srcset = (set: Record<number, string>) =>
+  Object.entries(set).map(([w, src]) => `${src} ${w}w`).join(', ');
+---
+<section class="hero" data-hero aria-labelledby="hero-title">
+  <div class="hero__art" style={`--ratio:${L.ratio};--front-top:${L.frontTop * 100}%`}>
+    <img
+      class="hero__layer hero__layer--back"
+      data-depth="0.08"
+      srcset={srcset(L.background)}
+      sizes="(max-aspect-ratio: 3/2) 150svh, 100vw"
+      src={L.background[1728]}
+      alt={tr(L.alt, lang)}
+      fetchpriority="high"
+      decoding="async"
+    />
+    <p class="hero__stamp" data-depth="0.28" aria-hidden="true"><span>{h.stamp}</span></p>
+    <img
+      class="hero__layer hero__layer--front"
+      data-depth="0"
+      srcset={srcset(L.foreground)}
+      sizes="(max-aspect-ratio: 3/2) 150svh, 100vw"
+      src={L.foreground[1728]}
+      alt=""
+      decoding="async"
+    />
+  </div>
+
+  <div class="hero__content container">
+    <p class="kicker hero__kicker hero__in" style="--i:2">{tr(h.kicker, lang)}</p>
+    <h1 id="hero-title" class="hero__title hero__in" style="--i:3" set:html={rich(tr(h.title, lang))} />
+    <div class="hero__row hero__in" style="--i:4">
+      <p class="hero__lead">{tr(h.lead, lang)}</p>
+      <a class="btn btn--on-photo hero__cta" href={href(h.cta.href, lang)}>
+        {tr(h.cta.label, lang)} <Icon name="arrow" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    --hero-h: max(100svh, 40rem);
+    position: relative;
+    height: var(--hero-h);
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--on-photo);
+    background: #0b6f73; /* tono del cielo mientras carga la foto */
+  }
+  /* Velos: arriba para la cabecera, abajo para el texto */
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .hero::before {
+    top: 0;
+    height: 8rem;
+    background: linear-gradient(oklch(20% 0.05 240 / 0.32), transparent);
+  }
+  .hero::after {
+    bottom: 0;
+    height: 60%;
+    background: linear-gradient(to top, oklch(16% 0.04 258 / 0.85) 0%, oklch(16% 0.04 258 / 0.45) 45%, transparent);
+  }
+
+  /* Lienzo 3:2 que cubre la portada (object-fit: cover, pero con capas) */
+  .hero__art {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: max(100%, calc(var(--hero-h) * var(--ratio)));
+    aspect-ratio: var(--ratio);
+    transform: translate(-50%, -46%);
+    container-type: inline-size;
+  }
+  .hero__layer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    will-change: transform;
+  }
+  .hero__layer--back { top: 0; height: 100%; object-fit: cover; }
+  .hero__layer--front { top: var(--front-top); height: calc(100% - var(--front-top)); z-index: 2; }
+
+  /* Palabra gigante: su base queda bajo la línea de la sierra */
+  .hero__stamp {
+    position: absolute;
+    inset-inline: 0;
+    top: 24.5%;
+    z-index: 1;
+    text-align: center;
+    font-size: min(19cqw, 27vw);
+    font-weight: var(--w-bold);
+    letter-spacing: -0.055em;
+    line-height: 0.8;
+    color: #fff;
+    will-change: transform;
+  }
+  .hero__stamp span {
+    display: inline-block;
+    animation: stamp-in 1.4s var(--ease-out) 0.15s both;
+  }
+  .hero__layer--front {
+    animation: front-in 1.6s var(--ease-out) both;
+  }
+
+  /* Texto */
+  .hero__content {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 4;
+    padding-bottom: clamp(var(--space-l), 6vh, var(--space-2xl));
+    display: grid;
+    gap: var(--space-s);
+  }
+  .hero__kicker { color: inherit; opacity: 0.9; }
+  .hero__title {
+    font-size: var(--step-4);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 1.02;
+    max-width: 21ch;
+  }
+  .hero__title :global(strong) { font-weight: var(--w-bold); }
+  .hero__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-m) var(--space-xl);
+    margin-top: var(--space-2xs);
+  }
+  .hero__lead {
+    max-width: 44ch;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  .hero__in { animation: hero-in var(--dur-3) var(--ease-out) both; animation-delay: calc(var(--i) * 110ms + 250ms); }
+
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(var(--reveal-distance)); }
+  }
+  @keyframes stamp-in {
+    from { opacity: 0; transform: translateY(min(14cqw, 20vw)); }
+  }
+  @keyframes front-in {
+    from { transform: scale(1.06); transform-origin: 50% 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__in,
+    .hero__stamp span,
+    .hero__layer--front { animation: none; }
+  }
+
+  @media (max-width: 40rem) {
+    .hero__art { top: 42%; transform: translate(-50%, -42%); }
+    .hero__stamp { top: 34.5%; font-size: 24vw; }
+    .hero__title { font-size: var(--step-3); }
+    .hero__cta { width: 100%; }
+  }
+</style>
+
+<script>
+  // Parallax por capa: cada [data-depth] baja una fracción del scroll.
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const layers = [...hero.querySelectorAll<HTMLElement>('[data-depth]')];
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = Math.min(scrollY, hero.offsetHeight);
+      for (const el of layers) el.style.transform = `translate3d(0, ${y * Number(el.dataset.depth)}px, 0)`;
+    };
+    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    update();
+  }
+</script>

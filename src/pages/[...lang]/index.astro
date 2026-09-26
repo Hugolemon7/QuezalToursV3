@@ -1,0 +1,21 @@
+---
+import Base from '@/layouts/Base.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import Hero from '@/components/home/Hero.astro';
+import ToursCarousel from '@/components/home/ToursCarousel.astro';
+import Spotlight from '@/components/home/Spotlight.astro';
+import Modes from '@/components/home/Modes.astro';
+import { pages, type Lang } from '@/content/site';
+import { langPaths } from '@/lib/i18n';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const p = pages.home;
+---
+<Base lang={lang} title={p.meta.title} description={p.meta.description} overHero schema>
+  <Hero lang={lang} />
+  <ToursCarousel lang={lang} />
+  <Spotlight lang={lang} />
+  <Modes lang={lang} />
+  <ContactSection lang={lang} />
+</Base>

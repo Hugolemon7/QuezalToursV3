@@ -1,0 +1,98 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { site, ui, contact, type Lang, type Text } from '@/content/site';
+import { tr, switchLang, langs } from '@/lib/i18n';
+
+interface Props {
+  lang: Lang;
+  title: Text;
+  description?: Text;
+  noindex?: boolean;
+  bare?: boolean;
+  /** La página abre con foto a sangre bajo la cabecera. */
+  overHero?: boolean;
+  /** Añade los datos estructurados de la agencia (solo inicio). */
+  schema?: boolean;
+}
+const { lang, title, description = site.description, noindex = false, bare = false, overHero = false, schema = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(site.ogImage, Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  name: site.legalName,
+  alternateName: site.name,
+  url: new URL('/', Astro.site).href,
+  logo: new URL(site.logo.src, Astro.site).href,
+  image: ogImage.href,
+  description: tr(site.description, lang),
+  telephone: contact.phones[0].href.replace('tel:', ''),
+  email: contact.email,
+  address: { '@type': 'PostalAddress', addressLocality: 'Oaxaca de Juárez', addressRegion: 'Oaxaca', addressCountry: 'MX' },
+  areaServed: 'Oaxaca, México',
+  sameAs: contact.social.map((s) => s.href),
+};
+const pageTitle = `${tr(title, lang)} · ${site.name}`;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={tr(description, lang)} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href={site.favicon} />
+    {langs.map((l) => (
+      <link rel="alternate" hreflang={l} href={new URL(switchLang(path, l), Astro.site)} />
+    ))}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={tr(description, lang)} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <!-- Tema: preferencia guardada > sistema. Antes de pintar para evitar parpadeo. -->
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        const mq = matchMedia('(prefers-color-scheme: dark)');
+        let saved = null;
+        try { saved = localStorage.getItem('qt-theme'); } catch {}
+        if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
+        const resolve = () => {
+          root.dataset.themeResolved = root.dataset.theme || (mq.matches ? 'dark' : 'light');
+        };
+        resolve();
+        mq.addEventListener('change', resolve);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">{tr(ui.skipToContent, lang)}</a>
+    {!bare && <Header lang={lang} overHero={overHero} />}
+    <main id="contenido" tabindex="-1" class:list={{ 'main--below-header': !bare && !overHero }}>
+      <slot />
+    </main>
+    {!bare && <Footer lang={lang} />}
+    <script>
+      import { initReveal } from '@/lib/reveal';
+      initReveal();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  main:focus { outline: none; }
+  .main--below-header { padding-top: calc(3.5rem + var(--space-xs) * 2 + var(--space-l)); }
+</style>

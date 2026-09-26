@@ -1,0 +1,270 @@
+---
+import Photo from '@/components/Photo.astro';
+/**
+ * NOSOTROS — layout y animación de secciones ref. Lightship
+ * - Carta en filas alternas texto/imagen; las fotos se descubren con una
+ *   máscara que sube al entrar en pantalla.
+ * - Cifras con conteo al aparecer.
+ * - Cierre: una tarjeta de foto que se expande a pantalla completa con el
+ *   scroll mientras aparece el titular (máscara abstracta de Lightship).
+ */
+import Base from '@/layouts/Base.astro';
+import Icon from '@/components/Icon.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import { pages, site, type Lang } from '@/content/site';
+import { tr, rich, langPaths } from '@/lib/i18n';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const p = pages.nosotros;
+const L = p.letter;
+---
+<Base lang={lang} title={p.meta.title} description={p.meta.description} overHero>
+  <PageHero lang={lang} title={p.hero.title} lead={p.hero.lead} image={p.hero.image} position="50% 55%" />
+
+  <!-- ============ Carta ============ -->
+  <section class="letter section" aria-label={tr(L.greeting, lang)}>
+    <div class="container">
+      {L.rows.map((row, i) => (
+        <div class:list={['row', { 'row--flip': i % 2 === 1 }]}>
+          <div class="row__text">
+            {i === 0 && <p class="kicker" data-reveal>{tr(L.greeting, lang)}</p>}
+            {row.text.map((t, j) => (
+              <p
+                class:list={[i === 0 && j === 0 ? 'row__lead' : i === 1 ? 'row__statement' : 'row__body']}
+                data-reveal
+                style={`--d:${j + 1}`}
+                set:html={rich(tr(t, lang))}
+              />
+            ))}
+            {i === L.rows.length - 1 && (
+              <div class="row__sign" data-reveal style="--d:3">
+                <p class="row__farewell">{tr(L.farewell, lang)}</p>
+                <p class="meta">{tr(L.signature, lang)}</p>
+              </div>
+            )}
+          </div>
+          <figure class="row__media" data-reveal data-mask>
+            <Photo src={row.image.src} alt={tr(row.image.alt, lang)} sizes="(max-width: 56rem) 92vw, 52vw" widths={[480, 720, 960, 1280]} />
+          </figure>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ Datos ============ -->
+  <section class="stats section section--sunk" aria-labelledby="cifras">
+    <div class="container">
+      <p class="kicker" id="cifras" data-reveal>{tr(p.stats.kicker, lang)}</p>
+      <dl class="stats__list">
+        {site.stats.map((s, i) => (
+          <div class="stat" data-reveal style={`--d:${i + 1}`}>
+            <dt class="stat__label">{tr(s.label, lang)}</dt>
+            <dd class="stat__value" data-count={s.value.replace(/\D/g, '')} data-format={s.value} aria-label={s.value}>{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ Cierre: máscara que se expande ============ -->
+  <section class="expand" data-expand aria-labelledby="cierre-titulo">
+    <div class="expand__sticky">
+      <div class="expand__media">
+        <Photo src={p.closing.image.src} alt={tr(p.closing.image.alt, lang)} sizes="100vw" />
+      </div>
+      <div class="expand__content container">
+        <h2 id="cierre-titulo" class="expand__title" set:html={rich(tr(p.closing.title, lang))} />
+        <a class="btn btn--on-photo" href="#contacto">{tr(p.closing.cta.label, lang)} <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection lang={lang} form />
+</Base>
+
+<style>
+  /* ---------- Carta: filas alternas ---------- */
+  .letter .container { display: grid; gap: clamp(var(--space-2xl), 10vw, 9rem); }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(var(--space-xl), 7vw, 7rem);
+    align-items: center;
+  }
+  .row--flip { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  .row--flip .row__text { order: 2; }
+  .row__text { display: grid; gap: var(--space-m); align-content: center; }
+  .row__lead {
+    font-size: var(--step-2);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-heading);
+    line-height: 1.25;
+  }
+  .row__body { color: var(--ink-2); max-width: 46ch; }
+  .row__statement {
+    font-size: var(--step-3);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 1.12;
+  }
+  .row__statement :global(strong) { font-weight: var(--w-bold); }
+  .row__sign { display: grid; gap: 0.2rem; padding-top: var(--space-m); border-top: 1px solid var(--line); }
+  .row__farewell { font-family: var(--font-serif); font-style: italic; font-size: var(--step-2); }
+  .row__media {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .row--flip .row__media { aspect-ratio: 5 / 4; }
+  .row__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Máscara que sube (solo con JS; con reduced-motion ya es instantánea) */
+  :global(.js) [data-mask] {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(100% 0 0 0 round var(--r-lg));
+    transition: clip-path 1.3s var(--ease-out);
+  }
+  :global(.js) [data-mask] :global(img) { transform: scale(1.15); transition: transform 1.6s var(--ease-out); }
+  :global(.js) [data-mask]:global(.is-in) { clip-path: inset(0 0 0 0 round var(--r-lg)); }
+  :global(.js) [data-mask]:global(.is-in) :global(img) { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) [data-mask] { clip-path: none; transition: none; }
+    :global(.js) [data-mask] :global(img) { transform: none; transition: none; }
+  }
+
+  /* ---------- Cifras ---------- */
+  .stats .container { display: grid; gap: var(--space-l); }
+  .stats__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--line-strong);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--space-2xs);
+    padding: var(--space-l) var(--space-l) 0 0;
+  }
+  .stat + .stat { padding-left: var(--space-l); border-left: 1px solid var(--line-strong); }
+  .stat__value {
+    font-size: clamp(4rem, 2rem + 10vw, 11rem);
+    font-weight: var(--w-bold);
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat__label { font-size: var(--step-1); color: var(--ink-2); }
+
+  /* ---------- Cierre que se expande ---------- */
+  .expand { --p: 0; position: relative; height: 240svh; }
+  .expand__sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  .expand__media {
+    position: absolute;
+    inset: 0;
+    /* De tarjeta centrada (≈ 30 % × 45 %) a pantalla completa */
+    clip-path: inset(
+      calc((1 - var(--p)) * 27.5%) calc((1 - var(--p)) * 35%)
+      round calc((1 - var(--p)) * var(--r-lg))
+    );
+  }
+  .expand__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(calc(1.2 - var(--p) * 0.2));
+  }
+  .expand__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: oklch(15% 0.04 258 / calc(var(--p) * 0.45));
+  }
+  .expand__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-l);
+    text-align: center;
+    color: var(--on-photo);
+    opacity: clamp(0, calc((var(--p) - 0.55) * 3), 1);
+    transform: translateY(calc((1 - var(--p)) * 3rem));
+  }
+  .expand__title {
+    font-size: var(--step-hero);
+    font-weight: var(--w-light);
+    letter-spacing: var(--track-display);
+    line-height: 0.92;
+    max-width: 12ch;
+  }
+  .expand__title :global(strong) { font-weight: var(--w-bold); }
+  @media (prefers-reduced-motion: reduce) {
+    .expand { --p: 1 !important; height: auto; }
+    .expand__sticky { position: relative; height: 80svh; }
+  }
+
+  @media (max-width: 56rem) {
+    .row, .row--flip { grid-template-columns: minmax(0, 1fr); }
+    .row--flip .row__text { order: 0; }
+    .row__media, .row--flip .row__media { aspect-ratio: 4 / 3; }
+    .stats__list { grid-template-columns: minmax(0, 1fr); }
+    .stat + .stat { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-strong); margin-top: var(--space-l); }
+    .expand__title { font-size: var(--step-5); }
+  }
+</style>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Cierre: progreso de scroll dentro de la sección → --p
+  const expand = document.querySelector<HTMLElement>('[data-expand]');
+  if (expand && !reduce) {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = expand.getBoundingClientRect();
+      const total = r.height - innerHeight;
+      const p = Math.min(Math.max(-r.top / (total * 0.8), 0), 1);
+      expand.style.setProperty('--p', p.toFixed(4));
+    };
+    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
+
+  // Cifras: conteo al entrar en pantalla
+  const nums = document.querySelectorAll<HTMLElement>('[data-count]');
+  const fmt = new Intl.NumberFormat('en-US');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const end = Number(el.dataset.count);
+        const final = el.dataset.format!;
+        const t0 = performance.now();
+        const dur = 1600;
+        const step = (now: number) => {
+          const k = Math.min((now - t0) / dur, 1);
+          const eased = 1 - Math.pow(1 - k, 4);
+          el.textContent = k < 1 ? fmt.format(Math.round(end * eased)) : final;
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    }, { threshold: 0.5 });
+    nums.forEach((n) => { n.textContent = '0'; io.observe(n); });
+  }
+</script>
