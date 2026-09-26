@@ -5,6 +5,11 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# El archivo de credenciales nunca se sirve (por si se sube dentro de public_html)
+<Files "quetzal-config.php">
+  Require all denied
+</Files>
+
 # Página 404 propia
 ErrorDocument 404 /404.html
 

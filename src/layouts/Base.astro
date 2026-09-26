@@ -30,7 +30,15 @@ const jsonLd = {
   description: tr(site.description, lang),
   telephone: contact.phones[0].href.replace('tel:', ''),
   email: contact.email,
-  address: { '@type': 'PostalAddress', addressLocality: 'Oaxaca de Juárez', addressRegion: 'Oaxaca', addressCountry: 'MX' },
+  legalName: 'Agencia de Viajes Quetzal',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Huiyatoo 102-101, Col. Álamos Infonavit',
+    postalCode: '68143',
+    addressLocality: 'Oaxaca de Juárez',
+    addressRegion: 'Oaxaca',
+    addressCountry: 'MX',
+  },
   areaServed: 'Oaxaca, México',
   sameAs: contact.social.map((s) => s.href),
 };

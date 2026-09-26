@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // TODO: dominio final en Hostinger
+  // Dominio de producción (Hostinger): usado en sitemap, canónicas y Open Graph
   site: 'https://quetzaltours.com.mx',
   trailingSlash: 'ignore',
   i18n: {

@@ -1,0 +1,93 @@
+---
+/** AVISO DE PRIVACIDAD — página de lectura (modo Read): índice + secciones. */
+import Base from '@/layouts/Base.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import { privacy, ui, type Lang, type LegalBlock, type Text } from '@/content/site';
+import { tr, rich, langPaths } from '@/lib/i18n';
+
+export const getStaticPaths = langPaths;
+const { lang } = Astro.props as { lang: Lang };
+const P = privacy;
+
+const pending = (label: Text) => `<mark class="pending">[${tr(label, lang)}]</mark>`;
+const fill = (html: string) =>
+  html
+    .replace('{RAZON_SOCIAL}', P.company.legalEntity ? `<strong>${P.company.legalEntity}</strong>` : pending(P.pending.legalEntity))
+    .replace('{DOMICILIO}', P.company.address ?? pending(P.pending.address));
+const para = (t: Text) => fill(rich(tr(t, lang)));
+const isList = (b: LegalBlock): b is { list: Text[] } => 'list' in b;
+const note = tr(P.courtesyNote, lang);
+---
+<Base lang={lang} title={P.meta.title} description={P.meta.description}>
+  <article class="legal container">
+    <header class="legal__head">
+      <h1 class="legal__title">{tr(P.meta.title, lang)}</h1>
+      <p class="meta">{tr(P.updatedLabel, lang)}: {tr(P.updated, lang)}</p>
+      {note && <p class="legal__note">{note}</p>}
+    </header>
+
+    <nav class="legal__toc" aria-label={tr(ui.onThisPage, lang)}>
+      <p class="kicker">{tr(ui.onThisPage, lang)}</p>
+      <ol role="list">
+        {P.sections.map((s) => <li><a href={`#${s.id}`}>{tr(s.title, lang)}</a></li>)}
+      </ol>
+    </nav>
+
+    <div class="legal__body">
+      {P.sections.map((s) => (
+        <section id={s.id} aria-labelledby={`h-${s.id}`}>
+          <h2 id={`h-${s.id}`}>{tr(s.title, lang)}</h2>
+          {s.body.map((b) =>
+            isList(b)
+              ? <ul>{b.list.map((li) => <li set:html={para(li)} />)}</ul>
+              : <p set:html={para(b)} />,
+          )}
+        </section>
+      ))}
+    </div>
+  </article>
+
+  <ContactSection lang={lang} />
+</Base>
+
+<style>
+  .legal {
+    display: grid;
+    grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+    gap: var(--space-xl) clamp(var(--space-xl), 6vw, 6rem);
+    padding-block: var(--space-xl) var(--space-section);
+  }
+  .legal__head { grid-column: 1 / -1; display: grid; gap: var(--space-s); max-width: 48rem; }
+  .legal__title { font-size: var(--step-5); font-weight: var(--w-light); letter-spacing: var(--track-display); line-height: 1; }
+  .legal__note { color: var(--ink-2); font-style: italic; }
+  .legal__toc {
+    position: sticky;
+    top: calc(3.5rem + var(--space-xs) * 2 + var(--space-l));
+    align-self: start;
+    display: grid;
+    gap: var(--space-s);
+    padding-left: var(--space-m);
+    border-left: 1px solid var(--line);
+    font-size: var(--step--1);
+  }
+  .legal__toc ol { display: grid; gap: var(--space-2xs); }
+  .legal__toc a { color: var(--ink-2); text-decoration: none; }
+  .legal__toc a:hover { color: var(--ink); text-decoration: underline; }
+  .legal__body { display: grid; gap: var(--space-xl); max-width: var(--measure); }
+  .legal__body section { display: grid; gap: var(--space-s); scroll-margin-top: calc(3.5rem + var(--space-2xl)); }
+  .legal__body h2 { font-size: var(--step-2); }
+  .legal__body p, .legal__body li { color: var(--ink-2); }
+  .legal__body ul { display: grid; gap: var(--space-2xs); padding-left: 1.2rem; }
+  .legal__body li::marker { color: var(--accent-ink); }
+  .legal__body :global(strong) { color: var(--ink); font-weight: 650; }
+  .legal__body :global(mark.pending) {
+    background: color-mix(in oklab, var(--accent) 18%, transparent);
+    color: var(--ink);
+    padding: 0 0.25em;
+    border-radius: 0.25em;
+  }
+  @media (max-width: 56rem) {
+    .legal { grid-template-columns: minmax(0, 1fr); }
+    .legal__toc { position: static; }
+  }
+</style>

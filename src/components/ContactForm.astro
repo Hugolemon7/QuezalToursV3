@@ -7,7 +7,7 @@
  */
 import Icon from './Icon.astro';
 import { contact, ui, type Lang } from '@/content/site';
-import { tr } from '@/lib/i18n';
+import { tr, href } from '@/lib/i18n';
 
 interface Props { lang: Lang; subject?: string }
 const { lang, subject = '' } = Astro.props;
@@ -48,10 +48,21 @@ const req = tr(f.required, lang);
     <textarea id="cf-message" name="mensaje" rows="4"></textarea>
   </div>
 
+  <!-- Campo trampa anti-spam: oculto para personas, los bots lo rellenan -->
+  <div class="form__trap" aria-hidden="true">
+    <label for="cf-web">Sitio web</label>
+    <input id="cf-web" name="sitio_web" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="idioma" value={lang} />
+  <input type="hidden" name="pagina" value={Astro.url.pathname} />
+
   <div class="form__actions">
     <button class="btn btn--primary" type="submit">{tr(f.submit, lang)} <Icon name="arrow" /></button>
     {!contact.formEndpoint && <p class="meta">{tr(f.mailtoNote, lang)}</p>}
   </div>
+  <p class="form__consent">
+    {tr(f.consent, lang)} <a href={href(ui.legal[0].href, lang)}>{tr(ui.legal[0].label, lang).toLowerCase()}</a>.
+  </p>
   <p class="form__status" role="status" aria-live="polite"></p>
 </form>
 
@@ -86,7 +97,10 @@ const req = tr(f.required, lang);
   :global([data-theme-resolved='dark']) .field__error { color: oklch(75% 0.14 28); }
   .form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-m); }
   .form__actions .meta { max-width: 28ch; }
+  .form__consent { font-size: var(--step--1); color: var(--ink-3); }
+  .form__consent a { color: var(--ink-2); }
   .form__status { font-weight: var(--w-medium); }
+  .form__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .form__status:empty { display: none; }
 </style>
 
@@ -129,7 +143,8 @@ const req = tr(f.required, lang);
       status.textContent = d.msgSending!;
       try {
         const res = await fetch(d.endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(String(res.status));
+        const json = await res.json().catch(() => ({ ok: false }));
+        if (!res.ok || !json.ok) throw new Error(String(res.status));
         form.reset();
         status.textContent = d.msgOk!;
       } catch {

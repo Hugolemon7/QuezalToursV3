@@ -59,6 +59,9 @@ const socialIcon = { Instagram: 'instagram', Facebook: 'facebook', X: 'x' } as c
 
   <div class="container ft__bottom">
     <p>© {year} {tr(ui.copyright, lang)}</p>
+    <ul class="ft__legal" role="list">
+      {ui.legal.map((l) => <li><a href={href(l.href, lang)}>{tr(l.label, lang)}</a></li>)}
+    </ul>
     <a class="ft__top" href="#contenido">
       {tr(ui.backToTop, lang)} <Icon name="arrowUp" size={16} />
     </a>
@@ -125,6 +128,7 @@ const socialIcon = { Instagram: 'instagram', Facebook: 'facebook', X: 'x' } as c
     font-size: var(--step--1);
     color: var(--ft-ink-2);
   }
+  .ft__legal { display: flex; flex-wrap: wrap; gap: var(--space-m); }
   .ft__top { margin-inline-start: auto; display: inline-flex; align-items: center; gap: 0.4em; }
 
   @media (max-width: 56rem) {

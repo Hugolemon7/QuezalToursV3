@@ -65,12 +65,11 @@ export const contact = {
   emailHref:
     'mailto:reservas@quetzaltours.com.mx?subject=%C2%A1Hola%2C%20Quetzal%20Tours!',
   /**
-   * Destino del formulario. Hostinger no procesa formularios por sí solo.
-   * TODO(cliente): elegir servicio (p. ej. script PHP en Hostinger o Web3Forms).
-   * Mientras sea null, el formulario abre el correo del visitante con el
-   * mensaje ya redactado.
+   * Destino del formulario: script PHP en Hostinger (public/api/enviar.php),
+   * que envía por SMTP a reservas@. Si se pone en null, el formulario abre
+   * el correo del visitante con el mensaje ya redactado.
    */
-  formEndpoint: null as string | null,
+  formEndpoint: '/api/enviar.php' as string | null,
   social: [
     { name: 'Instagram', href: 'https://www.instagram.com/quetzaltours/' },
     { name: 'Facebook', href: 'https://www.facebook.com/QuetzalTourOperator' },
@@ -175,7 +174,7 @@ export const ui = {
   contactTitle: t('¡Escríbenos y **reserva**!', 'Write to us and **book**!'),
   followUs: t('Síguenos', 'Follow us'),
   copyright: t('Quetzal Tour Operator. Todos los derechos reservados.', 'Quetzal Tour Operator. All rights reserved.'),
-  // Páginas legales: pendientes del cliente; se añaden cuando existan.
+  legal: [{ href: '/aviso-de-privacidad', label: t('Aviso de privacidad', 'Privacy notice') }],
   form: {
     title: t('Déjanos un mensaje', 'Leave us a message'),
     name: t('Tu nombre', 'Your name'),
@@ -187,6 +186,7 @@ export const ui = {
     sending: t('Enviando…', 'Sending…'),
     invalidName: t('Escribe tu nombre.', 'Please enter your name.'),
     invalidEmail: t('Escribe un correo válido, por ejemplo nombre@correo.com.', 'Please enter a valid email, for example name@email.com.'),
+    consent: t('Al enviar el formulario aceptas el tratamiento de tus datos conforme a nuestro', 'By sending this form you agree to the processing of your data under our'),
     mailtoNote: t('Se abrirá tu aplicación de correo con el mensaje listo para enviar.', 'Your email app will open with the message ready to send.'),
     success: t('¡Gracias! Tu mensaje ha sido enviado, nos pondremos en contacto contigo.', 'Thank you! Your message has been sent; we\'ll get back to you soon.'),
     error: t('¡Ups! Parece que algo salió mal con el mensaje. Intenta nuevamente.', 'Oops! Something went wrong with your message. Please try again.'),
@@ -625,10 +625,9 @@ export const packages: Package[] = [
     cover: img('/fotos/paquete-oaxaca-cultural.webp', 'Vista panorámica de Monte Albán', 'Panoramic view of Monte Albán'),
     hasDetail: false, // TODO(cliente): textos
   },
-  // REVISAR: "Guelaguetza 2025" ya pasó; ¿se actualiza a 2027?
   {
-    slug: 'guelaguetza',
-    name: t('Guelaguetza', 'Guelaguetza'),
+    slug: 'guelaguetza-2027',
+    name: t('Guelaguetza 2027', 'Guelaguetza 2027'),
     cover: img('/fotos/paquete-guelaguetza.webp', 'Chinas oaxaqueñas con canastas de flores en una calenda', 'Chinas oaxaqueñas carrying flower baskets in a calenda parade'),
     hasDetail: false, // TODO(cliente): textos
   },
@@ -824,6 +823,204 @@ export const pages = {
     },
   },
 } as const;
+
+/* ------------------------------------------------------------------ */
+/* Aviso de privacidad (LFPDPPP, México)                               */
+/* ------------------------------------------------------------------ */
+
+/** Bloque de texto: párrafo o lista. {RAZON_SOCIAL} y {DOMICILIO} se sustituyen al mostrarlo. */
+export type LegalBlock = Text | { list: Text[] };
+
+export const privacy = {
+  slug: '/aviso-de-privacidad',
+  meta: {
+    title: t('Aviso de privacidad', 'Privacy notice'),
+    description: t(
+      'Cómo Quetzal Tour Operator recaba, usa y protege tus datos personales, y cómo ejercer tus derechos ARCO.',
+      'How Quetzal Tour Operator collects, uses and protects your personal data, and how to exercise your ARCO rights.',
+    ),
+  },
+  updated: t('26 de septiembre de 2026', 'September 26, 2026'),
+  updatedLabel: t('Última actualización', 'Last updated'),
+  courtesyNote: t('', 'This English version is a courtesy translation. In case of any discrepancy, the Spanish version prevails.'),
+  /** Si alguno fuera null, se mostraría marcado como pendiente. */
+  company: {
+    legalEntity: 'Agencia de Viajes Quetzal' as string | null,
+    address: 'Huiyatoo 102-101, Col. Álamos Infonavit, C.P. 68143, Oaxaca de Juárez, Oaxaca, México' as string | null,
+  },
+  pending: { legalEntity: t('razón social pendiente', 'legal entity name pending'), address: t('domicilio pendiente', 'address pending') },
+  sections: [
+    {
+      id: 'responsable',
+      title: t('1. Identidad y domicilio del responsable', '1. Identity and address of the data controller'),
+      body: [
+        t(
+          '{RAZON_SOCIAL}, que opera comercialmente como **Quetzal Tour Operator** («Quetzal Tours», «nosotros»), con domicilio en {DOMICILIO}, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y demás normativa aplicable.',
+          '{RAZON_SOCIAL}, doing business as **Quetzal Tour Operator** ("Quetzal Tours", "we"), with its address at {DOMICILIO}, is responsible for the processing of your personal data under Mexico\'s Federal Law on the Protection of Personal Data Held by Private Parties and other applicable regulations.',
+        ),
+        t(
+          'Para cualquier asunto relacionado con tus datos personales puedes escribirnos a **reservas@quetzaltours.com.mx** o llamarnos al **+52 (951) 515 55 51**.',
+          'For any matter related to your personal data, write to us at **reservas@quetzaltours.com.mx** or call us at **+52 (951) 515 55 51**.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'datos',
+      title: t('2. Datos personales que recabamos', '2. Personal data we collect'),
+      body: [
+        t('Según el servicio que nos solicites, podemos recabar:', 'Depending on the service you request, we may collect:'),
+        {
+          list: [
+            t('**Identificación y contacto:** nombre, correo electrónico, teléfono o WhatsApp.', '**Identification and contact:** name, email address, phone or WhatsApp number.'),
+            t('**Datos del viaje:** tour, paquete o circuito de interés, fechas, número de viajeros, hotel o alojamiento para la recogida, idioma preferido y peticiones especiales.', '**Trip details:** tour, package or circuit of interest, dates, number of travelers, hotel or lodging for pickup, preferred language and special requests.'),
+            t('**Para paquetes y circuitos con hospedaje o vuelos:** los datos que exigen hoteles, aerolíneas y aseguradoras, como nombre completo tal como aparece en tu identificación, fecha de nacimiento, nacionalidad y número de pasaporte o identificación oficial.', '**For packages and circuits with lodging or flights:** the data required by hotels, airlines and insurers, such as your full name as it appears on your ID, date of birth, nationality and passport or official ID number.'),
+            t('**Facturación**, si solicitas factura: nombre o razón social, RFC, domicilio fiscal y régimen fiscal.', '**Invoicing**, if you request an invoice: name or company name, tax ID (RFC), tax address and tax regime.'),
+          ],
+        },
+        t(
+          '**Datos sensibles:** no los solicitamos. Si decides compartirnos información de salud (por ejemplo, alergias alimentarias o necesidades de movilidad) para adaptar tu experiencia, la usaremos únicamente con ese fin y con tu consentimiento expreso, que otorgas al enviárnosla.',
+          '**Sensitive data:** we do not request it. If you choose to share health information with us (for example, food allergies or mobility needs) so we can adapt your experience, we will use it solely for that purpose and with your express consent, which you give by sending it to us.',
+        ),
+        t(
+          '**Menores de edad:** los datos de menores que viajen con nosotros deben proporcionarlos su madre, padre o tutor, quien otorga el consentimiento correspondiente.',
+          '**Minors:** data of minors traveling with us must be provided by their parent or legal guardian, who gives the corresponding consent.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'obtencion',
+      title: t('3. Cómo obtenemos tus datos', '3. How we obtain your data'),
+      body: [
+        t(
+          'Directamente de ti, cuando nos escribes a través del formulario de este sitio, por correo electrónico, por teléfono, por WhatsApp o por nuestras redes sociales, o cuando nos visitas en persona.',
+          'Directly from you, when you contact us through the form on this site, by email, by phone, via WhatsApp or our social media, or when you visit us in person.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'finalidades',
+      title: t('4. Para qué usamos tus datos', '4. How we use your data'),
+      body: [
+        t('**Finalidades primarias**, necesarias para prestarte el servicio:', '**Primary purposes**, necessary to provide the service:'),
+        {
+          list: [
+            t('Responder tus mensajes, solicitudes de información y cotizaciones.', 'Replying to your messages, information requests and quotes.'),
+            t('Reservar y prestar los tours, paquetes y circuitos que contrates.', 'Booking and providing the tours, packages and circuits you purchase.'),
+            t('Coordinar la recogida en tu hotel, el transporte y los guías.', 'Coordinating hotel pickup, transportation and guides.'),
+            t('Contratar en tu nombre hospedaje, vuelos, entradas y demás servicios incluidos.', 'Booking lodging, flights, entrance tickets and other included services on your behalf.'),
+            t('Gestionar el seguro de viajero a bordo.', 'Managing traveler insurance on board.'),
+            t('Informarte de cambios en tu itinerario.', 'Informing you of changes to your itinerary.'),
+            t('Gestionar pagos y emitir facturas.', 'Processing payments and issuing invoices.'),
+            t('Cumplir obligaciones legales y atender requerimientos de autoridades.', 'Complying with legal obligations and requests from authorities.'),
+          ],
+        },
+        t('**Finalidades secundarias**, que no son necesarias para el servicio:', '**Secondary purposes**, not necessary for the service:'),
+        {
+          list: [
+            t('Enviarte promociones, novedades y temporadas especiales.', 'Sending you promotions, news and special seasons.'),
+            t('Invitarte a encuestas de satisfacción.', 'Inviting you to satisfaction surveys.'),
+          ],
+        },
+        t(
+          'Si no deseas que usemos tus datos para las finalidades secundarias, escríbenos en cualquier momento a **reservas@quetzaltours.com.mx** con el asunto «No deseo publicidad». Tu negativa no afectará los servicios que contrates con nosotros.',
+          'If you do not want us to use your data for secondary purposes, write to us at any time at **reservas@quetzaltours.com.mx** with the subject "No advertising". Declining will not affect the services you purchase from us.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'transferencias',
+      title: t('5. Con quién compartimos tus datos', '5. Who we share your data with'),
+      body: [
+        t(
+          'No vendemos ni cedemos tus datos. Solo los compartimos cuando es necesario para prestarte el servicio que contrataste o cuando la ley lo exige:',
+          'We do not sell or rent your data. We only share it when necessary to provide the service you purchased or when required by law:',
+        ),
+        {
+          list: [
+            t('Hoteles, transportistas, guías certificados, aerolíneas, aseguradoras y administradores de sitios y espectáculos, en México y, para circuitos por Centroamérica, en los países que visites.', 'Hotels, transportation companies, certified guides, airlines, insurers and site or show operators, in Mexico and, for Central America circuits, in the countries you visit.'),
+            t('Autoridades competentes, cuando exista un requerimiento legal.', 'Competent authorities, when legally required.'),
+          ],
+        },
+        t(
+          'Estas transferencias no requieren tu consentimiento porque son necesarias para cumplir el servicio que contrataste o una obligación legal. Además, usamos proveedores que tratan datos por nuestra cuenta, como el servicio de alojamiento web y correo electrónico, obligados a protegerlos.',
+          'These transfers do not require your consent because they are necessary to fulfill the service you purchased or a legal obligation. We also use providers that process data on our behalf, such as our web hosting and email service, who are bound to protect it.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'arco',
+      title: t('6. Tus derechos ARCO', '6. Your ARCO rights'),
+      body: [
+        t(
+          'Tienes derecho a **Acceder** a tus datos, **Rectificarlos** si son inexactos, **Cancelarlos** cuando consideres que no se requieren para las finalidades señaladas y **Oponerte** a su uso para fines específicos.',
+          'You have the right to **Access** your data, **Rectify** it if inaccurate, **Cancel** it when you believe it is no longer needed for the stated purposes, and **Object** to its use for specific purposes.',
+        ),
+        t('Para ejercerlos, envía una solicitud a **reservas@quetzaltours.com.mx** que incluya:', 'To exercise them, send a request to **reservas@quetzaltours.com.mx** including:'),
+        {
+          list: [
+            t('Tu nombre y un medio para comunicarte la respuesta.', 'Your name and a way to send you our response.'),
+            t('Copia de tu identificación oficial o, si actúas en representación de alguien, el documento que lo acredite.', 'A copy of your official ID or, if acting on someone else\'s behalf, proof of representation.'),
+            t('La descripción clara de los datos y del derecho que deseas ejercer.', 'A clear description of the data and the right you wish to exercise.'),
+            t('En caso de rectificación, la corrección que solicitas y, si aplica, documentos que la respalden.', 'For rectification, the correction you request and, if applicable, supporting documents.'),
+          ],
+        },
+        t(
+          'Te responderemos en un plazo máximo de 20 días hábiles. Si tu solicitud procede, la haremos efectiva dentro de los 15 días hábiles siguientes a nuestra respuesta.',
+          'We will respond within a maximum of 20 business days. If your request is granted, we will carry it out within 15 business days of our response.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'revocacion',
+      title: t('7. Revocar tu consentimiento o limitar el uso de tus datos', '7. Revoking consent or limiting the use of your data'),
+      body: [
+        t(
+          'Puedes revocar tu consentimiento o pedir que limitemos el uso o la divulgación de tus datos por el mismo medio y con los mismos requisitos del apartado anterior. Ten en cuenta que, si la revocación afecta datos necesarios para un servicio en curso, es posible que no podamos continuar prestándolo.',
+          'You can revoke your consent or ask us to limit the use or disclosure of your data through the same channel and with the same requirements as the previous section. Please note that if revocation affects data needed for an ongoing service, we may be unable to continue providing it.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'sitio',
+      title: t('8. Uso de tecnologías en este sitio', '8. Technologies used on this site'),
+      body: [
+        {
+          list: [
+            t('**No usamos cookies de rastreo, de analítica ni de publicidad.**', '**We do not use tracking, analytics or advertising cookies.**'),
+            t('Guardamos en tu navegador (almacenamiento local) únicamente tu preferencia de tema claro u oscuro. Puedes borrarla desde la configuración de tu navegador.', 'We only store your light or dark theme preference in your browser (local storage). You can delete it from your browser settings.'),
+            t('Para evitar el envío masivo de spam, el formulario conserva durante 10 minutos un identificador cifrado derivado de tu dirección IP; no guardamos la IP.', 'To prevent spam, the contact form keeps an encrypted identifier derived from your IP address for 10 minutes; we do not store the IP itself.'),
+            t('Nuestro servidor registra datos técnicos de las visitas (dirección IP, fecha y página consultada) con fines de seguridad y funcionamiento.', 'Our server logs technical visit data (IP address, date and page viewed) for security and operational purposes.'),
+            t('Los enlaces a WhatsApp, Facebook, Instagram y X te llevan a servicios de terceros que se rigen por sus propias políticas de privacidad.', 'Links to WhatsApp, Facebook, Instagram and X take you to third-party services governed by their own privacy policies.'),
+          ],
+        },
+      ] as LegalBlock[],
+    },
+    {
+      id: 'conservacion',
+      title: t('9. Conservación de tus datos', '9. Data retention'),
+      body: [
+        t(
+          'Conservamos tus datos solo durante el tiempo necesario para cumplir las finalidades descritas y las obligaciones legales aplicables, como las fiscales. Después los eliminamos de forma segura.',
+          'We keep your data only for as long as necessary to fulfill the purposes described and applicable legal obligations, such as tax requirements. After that, we securely delete it.',
+        ),
+      ] as LegalBlock[],
+    },
+    {
+      id: 'cambios',
+      title: t('10. Cambios a este aviso', '10. Changes to this notice'),
+      body: [
+        t(
+          'Podemos actualizar este aviso de privacidad. Cualquier cambio se publicará en esta misma página, indicando la fecha de la última actualización.',
+          'We may update this privacy notice. Any change will be published on this page, showing the date of the latest update.',
+        ),
+        t(
+          'Si consideras que tu derecho a la protección de datos personales ha sido vulnerado, puedes acudir ante la autoridad competente en materia de protección de datos personales.',
+          'If you believe your right to personal data protection has been violated, you may file a complaint with the competent data protection authority.',
+        ),
+      ] as LegalBlock[],
+    },
+  ],
+};
 
 /* ------------------------------------------------------------------ */
 /* Selectores                                                          */
