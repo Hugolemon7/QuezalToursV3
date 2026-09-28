@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": {
+      "es": "Tours en Oaxaca",
+      "en": "Oaxaca Tours"
+    },
+    "description": {
+      "es": "Excursiones en servicio compartido o privado con guías bilingües certificados por la Secretaría de Turismo.",
+      "en": "Shared or private excursions with bilingual guides certified by the Ministry of Tourism."
+    }
+  },
+  "hero": {
+    "title": {
+      "es": "Tours en **Oaxaca**",
+      "en": "Tours in **Oaxaca**"
+    },
+    "lead": {
+      "es": "Maravillas arqueológicas, arquitectónicas, culturales, gastronómicas y naturales. Contrata tu excursión con nosotros.",
+      "en": "Archaeological, architectural, cultural, culinary and natural wonders. Book your excursion with us."
+    },
+    "image": {
+      "src": "/paginas/tours/hero/image/src.webp",
+      "alt": {
+        "es": "Teatro Macedonio Alcalá, Oaxaca",
+        "en": "Macedonio Alcalá Theater, Oaxaca"
+      }
+    }
+  },
+  "description": [
+    {
+      "es": "Nuestras excursiones en servicio compartido incluyen guías de turistas bilingües (español/inglés) autorizados por la Secretaría de Turismo del Gobierno Federal; transporte de servicio exclusivo de turismo en viaje redondo; seguro del pasajero a bordo y, como cortesía, te recogemos y regresamos a tu hotel.",
+      "en": "Our shared-service excursions include bilingual (Spanish/English) tour guides authorized by Mexico's Federal Ministry of Tourism; round-trip transport for exclusive tourist use; passenger insurance on board; and, as a courtesy, pickup and drop-off at your hotel."
+    },
+    {
+      "es": "Nuestros precios no incluyen boletos de entrada a los sitios a visitar ni impuestos. Temporalmente contamos con descuentos y promociones.",
+      "en": "Our prices do not include entrance fees to the sites visited or taxes. We currently offer discounts and promotions."
+    },
+    {
+      "es": "También ofrecemos excursiones con auto, van o autobús y guía de turistas en servicio privado por hora o por día, en diferentes idiomas.",
+      "en": "We also offer excursions by car, van or bus with a tour guide in private service, by the hour or by the day, in different languages."
+    },
+    {
+      "es": "¿Tienes alguna petición especial para tu excursión? Háznoslo saber: todas nuestras excursiones son personalizadas.",
+      "en": "Do you have a special request for your excursion? Let us know: all our excursions are personalized."
+    }
+  ]
+}

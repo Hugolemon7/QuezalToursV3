@@ -1,0 +1,151 @@
+{
+  "name": "Cena Show Guelaguetza",
+  "nameEn": "Guelaguetza Dinner Show",
+  "order": 5,
+  "category": "gastronomia",
+  "duration": "4",
+  "region": {
+    "es": "Ciudad de Oaxaca",
+    "en": "Oaxaca City"
+  },
+  "banner": "/tours/cena-guelaguetza/banner.webp",
+  "cover": {
+    "src": "/tours/cena-guelaguetza/cover/src.webp",
+    "alt": {
+      "es": "Danza folclórica de la Guelaguetza",
+      "en": "Guelaguetza folk dance"
+    }
+  },
+  "summary": {
+    "es": "Cena oaxaqueña tradicional de cuatro tiempos con un espectáculo de danzas regionales que celebran la diversidad cultural del Estado."
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Cena Show Guelaguetza",
+        "en": "Guelaguetza Dinner Show"
+      },
+      "body": [
+        {
+          "es": "No puedes visitar Oaxaca sin vivir la magia de la **Guelaguetza**, una de las expresiones folclóricas más fascinantes de México.",
+          "en": "You can't visit Oaxaca without experiencing the magic of the **Guelaguetza**, one of Mexico's most fascinating folk celebrations."
+        },
+        {
+          "es": "Disfruta de una cena oaxaqueña de 4 tiempos, preparada con ingredientes frescos de la región, mientras te sumerges en un espectáculo que celebra la riqueza cultural de Oaxaca.",
+          "en": "Enjoy a four-course Oaxacan dinner, prepared with fresh local ingredients, while you immerse yourself in a show that celebrates Oaxaca's cultural wealth."
+        },
+        {
+          "es": "La danza y la música indígenas, provenientes de las distintas regiones del Estado, cobran vida en la **Capilla de Santa Catalina**, con ballet folklórico y la música en vivo de una banda tradicional.",
+          "en": "Indigenous dance and music from the State's different regions come to life in the **Chapel of Santa Catalina**, with a folkloric ballet and live music by a traditional band."
+        },
+        {
+          "es": "La función comienza a las 18:00 h. Nosotros nos encargamos de la reservación.",
+          "en": "The show starts at 6:00 p.m. We take care of the reservation."
+        }
+      ],
+      "departures": {
+        "es": "Consulta disponibilidad y calendario, ya que los días pueden variar.",
+        "en": "Check availability and schedule, as days may vary."
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Cena de cuatro tiempos",
+            "en": "Four-course dinner"
+          },
+          "text": {
+            "es": "Cocina oaxaqueña con ingredientes de la región.",
+            "en": "Oaxacan cuisine with local ingredients."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Espectáculo de Guelaguetza",
+            "en": "Guelaguetza show"
+          },
+          "text": {
+            "es": "Ballet folklórico y banda en vivo en la Capilla de Santa Catalina.",
+            "en": "Folkloric ballet and live band at the Chapel of Santa Catalina."
+          },
+          "image": {
+            "src": "/tours/cena-guelaguetza/detail/value/stops/1/image/src.webp",
+            "alt": {
+              "es": "Espectáculo de Guelaguetza",
+              "en": "Guelaguetza show"
+            }
+          }
+        }
+      ],
+      "includes": [
+        {
+          "es": "Seguro de viajero a bordo",
+          "en": "Traveler insurance on board"
+        },
+        {
+          "es": "Transporte de lujo de uso exclusivo de turismo",
+          "en": "Luxury transport for exclusive tourist use"
+        },
+        {
+          "es": "Impuestos",
+          "en": "Taxes"
+        },
+        {
+          "es": "Cena oaxaqueña",
+          "en": "Oaxacan dinner"
+        }
+      ],
+      "excludes": [
+        {
+          "es": "Propinas",
+          "en": "Tips"
+        },
+        {
+          "es": "Transportación de regreso al hotel",
+          "en": "Return transportation to the hotel"
+        }
+      ],
+      "itinerary": [
+        {
+          "label": {
+            "es": "Salida",
+            "en": "Departure"
+          },
+          "value": {
+            "es": "Pickup en el lobby de su hotel",
+            "en": "Pickup at your hotel lobby"
+          }
+        },
+        {
+          "label": {
+            "es": "Hora de salida",
+            "en": "Departure time"
+          },
+          "value": {
+            "es": "15 minutos antes, para salir a tiempo a las 18:00 h.",
+            "en": "15 minutes before, to leave on time at 6:00 p.m."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/tours/cena-guelaguetza/detail/value/gallery/0/src.webp",
+          "alt": {
+            "es": "Guelaguetza",
+            "en": "Guelaguetza"
+          }
+        },
+        {
+          "src": "/tours/cena-guelaguetza/detail/value/gallery/1/src.webp",
+          "alt": {
+            "es": "Guelaguetza",
+            "en": "Guelaguetza"
+          }
+        }
+      ]
+    }
+  }
+}

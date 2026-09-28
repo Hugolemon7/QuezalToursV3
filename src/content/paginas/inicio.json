@@ -1,0 +1,124 @@
+{
+  "metaTitle": {
+    "es": "Tours guiados en Oaxaca",
+    "en": "Guided tours in Oaxaca"
+  },
+  "hero": {
+    "kicker": {
+      "es": "¡Embárcate en una nueva aventura!",
+      "en": "Embark on a new adventure!"
+    },
+    "title": {
+      "es": "Conoce las maravillas de **Oaxaca** con el host correcto",
+      "en": "Discover the wonders of **Oaxaca** with the right host"
+    },
+    "lead": {
+      "es": "Desbloquea las puertas de una gran cultura, paisajes increíbles y emocionantes aventuras con nosotros.",
+      "en": "Unlock the doors to a great culture, stunning landscapes and exciting adventures with us."
+    },
+    "cta": {
+      "es": "Explora ahora",
+      "en": "Explore now"
+    }
+  },
+  "tours": {
+    "kicker": {
+      "es": "¡Vive la magia oaxaqueña!",
+      "en": "Live the Oaxacan magic!"
+    },
+    "title": {
+      "es": "Conoce **Oaxaca**",
+      "en": "Discover **Oaxaca**"
+    },
+    "lead": {
+      "es": "Explora las rutas más auténticas de Oaxaca con nuestras excursiones y experiencias diseñadas para ti.",
+      "en": "Explore Oaxaca's most authentic routes with our excursions and experiences designed for you."
+    },
+    "featured": [
+      "cena-guelaguetza",
+      "tour-ruta-monte-alban-oaxaca",
+      "tour-a-monte-alban-oaxaca",
+      "tour-a-san-pablo-guelatao",
+      "ruta-dominica-tour-oaxaca",
+      "mitla-tour-oaxaca"
+    ],
+    "cta": {
+      "es": "Ver más tours",
+      "en": "See more tours"
+    }
+  },
+  "spotlight": {
+    "kicker": {
+      "es": "¡Vive la Fiesta de Muertos en Oaxaca!",
+      "en": "Experience Day of the Dead in Oaxaca!"
+    },
+    "package": "fiesta-de-muertos-en-oaxaca-2026",
+    "cta": {
+      "es": "Más información",
+      "en": "More information"
+    }
+  },
+  "modes": {
+    "kicker": {
+      "es": "Conoce nuestras modalidades de viaje",
+      "en": "Discover our ways to travel"
+    },
+    "title": {
+      "es": "Viaja según tus **preferencias**",
+      "en": "Travel your **way**"
+    },
+    "items": [
+      {
+        "title": {
+          "es": "Tours en grupo",
+          "en": "Group tours"
+        },
+        "text": {
+          "es": "Nos especializamos en crear itinerarios personalizados que se adaptan a tus preferencias y a las de quienes viajan contigo.",
+          "en": "We specialize in creating personalized itineraries that adapt to your preferences and those of the people traveling with you."
+        },
+        "image": {
+          "src": "/paginas/inicio/modes/items/0/image/src.webp",
+          "alt": {
+            "es": "Grupo de viajeros en Oaxaca",
+            "en": "Group of travelers in Oaxaca"
+          }
+        }
+      },
+      {
+        "title": {
+          "es": "Tours privados",
+          "en": "Private tours"
+        },
+        "text": {
+          "es": "Flexibilidad y exclusividad. Programas pensados para que tu experiencia en Oaxaca sea completamente a tu medida.",
+          "en": "Flexibility and exclusivity. Programs designed so your Oaxaca experience is completely tailored to you."
+        },
+        "image": {
+          "src": "/paginas/inicio/modes/items/1/image/src.webp",
+          "alt": {
+            "es": "Viajera en la montaña",
+            "en": "Traveler in the mountains"
+          }
+        }
+      },
+      {
+        "title": {
+          "es": "Luna de miel y aniversarios",
+          "en": "Honeymoons and anniversaries"
+        },
+        "text": {
+          "es": "Experiencias especiales con detalles únicos que hacen de tu viaje a Oaxaca un momento para compartir y recordar.",
+          "en": "Special experiences with unique details that make your trip to Oaxaca a moment to share and remember."
+        },
+        "image": {
+          "src": "/paginas/inicio/modes/items/2/image/src.webp",
+          "alt": {
+            "es": "Pareja eligiendo un tapete artesanal",
+            "en": "Couple choosing a handmade rug"
+          }
+        }
+      }
+    ]
+  }
+}

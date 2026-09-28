@@ -1,0 +1,16 @@
+{
+  "name": "Guelaguetza 2027",
+  "nameEn": "Guelaguetza 2027",
+  "order": 4,
+  "summary": {},
+  "cover": {
+    "src": "/paquetes/guelaguetza-2027/cover/src.webp",
+    "alt": {
+      "es": "Chinas oaxaqueñas con canastas de flores en una calenda",
+      "en": "Chinas oaxaqueñas carrying flower baskets in a calenda parade"
+    }
+  },
+  "detail": {
+    "discriminant": false
+  }
+}

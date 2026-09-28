@@ -1,0 +1,19 @@
+{
+  "name": "Tour a Coyotepec, Jalietza y Ocotlán",
+  "nameEn": "Coyotepec, Jalietza & Ocotlán Tour",
+  "order": 7,
+  "category": "arte",
+  "duration": "4",
+  "region": {
+    "es": "Valles Centrales",
+    "en": "Central Valleys"
+  },
+  "banner": "/tours/tour-coyotepec-jalietza-ocotlan/banner.webp",
+  "cover": {
+    "alt": {}
+  },
+  "summary": {},
+  "detail": {
+    "discriminant": false
+  }
+}

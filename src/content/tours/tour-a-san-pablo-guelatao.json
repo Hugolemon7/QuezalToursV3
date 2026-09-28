@@ -1,0 +1,146 @@
+{
+  "name": "Tour a San Pablo Guelatao",
+  "nameEn": "San Pablo Guelatao Tour",
+  "order": 8,
+  "category": "ecoturismo",
+  "duration": "5",
+  "region": {
+    "es": "Sierra Norte",
+    "en": "Sierra Norte"
+  },
+  "banner": "/tours/tour-a-san-pablo-guelatao/banner.webp",
+  "cover": {
+    "alt": {}
+  },
+  "summary": {
+    "es": "Historia y naturaleza de la Sierra Norte: la cuna de Benito Juárez, la Laguna Encantada e Ixtlán de Juárez.",
+    "en": "History and nature in the Sierra Norte: the birthplace of Benito Juárez, the Enchanted Lagoon and Ixtlán de Juárez."
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Tour a San Pablo Guelatao e Ixtlán de Juárez.",
+        "en": "Tour to San Pablo Guelatao and Ixtlán de Juárez."
+      },
+      "body": [
+        {
+          "es": "Sumérgete en la historia y la majestuosidad natural de la **Sierra Madre Oriental**, en un recorrido que combina memoria, paisajes y legado.",
+          "en": "Immerse yourself in the history and natural majesty of the **Sierra Madre Oriental**, on a journey that combines memory, landscapes and legacy."
+        },
+        {
+          "es": "A 60 kilómetros de la Ciudad de Oaxaca se encuentra **San Pablo Guelatao**, un pueblo enclavado en la sierra, rodeado de bosques de niebla y montañas de tres mil metros. Es célebre por ser la **cuna de Don Benito Juárez García**, el presidente zapoteco que transformó el rumbo de México en el siglo XIX. Visitaremos el **Museo de Sitio** dedicado a su vida y legado, y la **Laguna Encantada**.",
+          "en": "Sixty kilometers from Oaxaca City lies **San Pablo Guelatao**, a village nestled in the mountains, surrounded by cloud forests and peaks three thousand meters high. It is famous as the **birthplace of Don Benito Juárez García**, the Zapotec president who changed the course of Mexico in the 19th century. We will visit the **Site Museum** dedicated to his life and legacy, and the **Enchanted Lagoon**."
+        },
+        {
+          "es": "A dos kilómetros de Guelatao se encuentra **Ixtlán de Juárez**, donde conoceremos su **iglesia barroca del siglo XVI**, construida en piedra.",
+          "en": "Two kilometers from Guelatao lies **Ixtlán de Juárez**, where we will see its **16th-century baroque church**, built in stone."
+        },
+        {
+          "es": "Durante todo el trayecto nos acompaña el paisaje de la Sierra Norte: aire puro, aromas de pino y encino, y vistas que conectan con la tierra oaxaqueña.",
+          "en": "Throughout the journey, the Sierra Norte landscape keeps us company: fresh air, the scent of pine and oak, and views that connect you with Oaxacan land."
+        }
+      ],
+      "departures": {
+        "es": "Salidas diarias desde la Ciudad de Oaxaca, bajo reservación.",
+        "en": "Daily departures from Oaxaca City, by reservation."
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Museo de Sitio de Benito Juárez",
+            "en": "Benito Juárez Site Museum"
+          },
+          "text": {
+            "es": "La vida y legado del presidente zapoteco.",
+            "en": "The life and legacy of the Zapotec president."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Laguna Encantada",
+            "en": "Enchanted Lagoon"
+          },
+          "text": {
+            "es": "Espejo de agua rodeado de bosque.",
+            "en": "A mirror of water surrounded by forest."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Ixtlán de Juárez",
+            "en": "Ixtlán de Juárez"
+          },
+          "text": {
+            "es": "Iglesia barroca del siglo XVI construida en piedra.",
+            "en": "A 16th-century baroque church built in stone."
+          },
+          "image": {
+            "alt": {}
+          }
+        }
+      ],
+      "includes": [
+        {
+          "es": "Guía de turista certificado",
+          "en": "Certified tour guide"
+        },
+        {
+          "es": "Seguro de viajero a bordo",
+          "en": "Traveler insurance on board"
+        },
+        {
+          "es": "Transporte de lujo de uso exclusivo de turismo",
+          "en": "Luxury transport for exclusive tourist use"
+        },
+        {
+          "es": "Impuestos",
+          "en": "Taxes"
+        }
+      ],
+      "excludes": [
+        {
+          "es": "Propinas",
+          "en": "Tips"
+        },
+        {
+          "es": "Ningún otro servicio que no esté aquí claramente especificado",
+          "en": "Any other service not clearly specified here"
+        },
+        {
+          "es": "Comida en el trayecto",
+          "en": "Meal during the tour"
+        }
+      ],
+      "itinerary": [
+        {
+          "label": {
+            "es": "Salida",
+            "en": "Departure"
+          },
+          "value": {
+            "es": "Pickup en el lobby de su hotel",
+            "en": "Pickup at your hotel lobby"
+          }
+        },
+        {
+          "label": {
+            "es": "Hora de salida",
+            "en": "Departure time"
+          },
+          "value": {
+            "es": "15 minutos antes, para salir a tiempo a las 09:30 h o 15:00 h.",
+            "en": "15 minutes before, to leave on time at 9:30 a.m. or 3:00 p.m."
+          }
+        }
+      ],
+      "gallery": []
+    }
+  }
+}

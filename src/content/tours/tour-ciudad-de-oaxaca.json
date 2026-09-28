@@ -1,0 +1,23 @@
+{
+  "name": "Ciudad de Oaxaca",
+  "nameEn": "Oaxaca City",
+  "order": 3,
+  "category": "colonial",
+  "duration": "3:30",
+  "region": {
+    "es": "Ciudad de Oaxaca",
+    "en": "Oaxaca City"
+  },
+  "banner": "/tours/tour-ciudad-de-oaxaca/banner.webp",
+  "cover": {
+    "src": "/tours/tour-ciudad-de-oaxaca/cover/src.webp",
+    "alt": {
+      "es": "Centro histórico de Oaxaca",
+      "en": "Historic center of Oaxaca"
+    }
+  },
+  "summary": {},
+  "detail": {
+    "discriminant": false
+  }
+}

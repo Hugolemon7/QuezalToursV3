@@ -1,0 +1,49 @@
+{
+  "description": {
+    "es": "Tours guiados en Oaxaca con guías certificados por la Secretaría de Turismo: Monte Albán, Mitla, Hierve el Agua, Guelaguetza y más. Salidas diarias desde la Ciudad de Oaxaca."
+  },
+  "email": "reservas@quetzaltours.com.mx",
+  "whatsapp": "529511138305",
+  "phones": [
+    {
+      "label": "+52 (951) 515 55 51",
+      "number": "529515155551",
+      "whatsapp": false
+    },
+    {
+      "label": "(951) 113 83 05",
+      "number": "529511138305",
+      "whatsapp": true
+    }
+  ],
+  "social": [
+    {
+      "name": "Instagram",
+      "href": "https://www.instagram.com/quetzaltours/"
+    },
+    {
+      "name": "Facebook",
+      "href": "https://www.facebook.com/QuetzalTourOperator"
+    },
+    {
+      "name": "X",
+      "href": "https://x.com/quetzaltours"
+    }
+  ],
+  "stats": [
+    {
+      "value": "34",
+      "label": {
+        "es": "Años al servicio del turismo",
+        "en": "Years in tourism"
+      }
+    },
+    {
+      "value": "50,000",
+      "label": {
+        "es": "Viajeros",
+        "en": "Travelers"
+      }
+    }
+  ]
+}

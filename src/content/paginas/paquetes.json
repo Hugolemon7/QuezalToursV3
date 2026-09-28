@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": {
+      "es": "Paquetes vacacionales",
+      "en": "Vacation Packages"
+    },
+    "description": {
+      "es": "Paquetes todo incluido y personalizables para vivir Oaxaca en cualquier época del año.",
+      "en": "All-inclusive, customizable packages to experience Oaxaca at any time of year."
+    }
+  },
+  "hero": {
+    "title": {
+      "es": "Paquetes **vacacionales**",
+      "en": "Vacation **Packages**"
+    },
+    "lead": {
+      "es": "Descubre Oaxaca con todos los sentidos.",
+      "en": "Discover Oaxaca with all your senses."
+    },
+    "image": {
+      "src": "/paginas/paquetes/hero/image/src.webp",
+      "alt": {
+        "es": "Danza de la Guelaguetza",
+        "en": "Guelaguetza dance"
+      }
+    }
+  },
+  "description": [
+    {
+      "es": "Nuestros paquetes vacacionales todo incluido te invitan a explorar lo mejor de Oaxaca en cualquier época del año: su gastronomía, la riqueza cultural de sus pueblos, sus tradiciones vivas y sus escenarios naturales.",
+      "en": "Our all-inclusive vacation packages invite you to explore the best of Oaxaca at any time of year: its food, the cultural richness of its towns, its living traditions and its natural landscapes."
+    },
+    {
+      "es": "Elige la temporada que más te convenga —desde fiestas tradicionales hasta momentos ideales para descansar—. Todos los paquetes son personalizables: puedes alargar o acortar tu estancia, añadir destinos dentro y fuera del Estado, o incluir experiencias a tu medida.",
+      "en": "Choose the season that suits you best —from traditional festivities to ideal times to rest. All packages are customizable: you can extend or shorten your stay, add destinations inside and outside the State, or include experiences tailored to you."
+    },
+    {
+      "es": "Escríbenos y te ayudamos a planear tu viaje, desde la primera idea hasta el último detalle.",
+      "en": "Write to us and we'll help you plan your trip, from the first idea to the last detail."
+    }
+  ]
+}

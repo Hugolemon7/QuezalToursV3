@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": {
+      "es": "Nosotros",
+      "en": "About Us"
+    },
+    "description": {
+      "es": "Quetzal Tour Operator: más de tres décadas mostrando Oaxaca.",
+      "en": "Quetzal Tour Operator: more than three decades showing Oaxaca."
+    }
+  },
+  "hero": {
+    "title": {
+      "es": "Somos **Quetzal** Tour Operator",
+      "en": "We are **Quetzal** Tour Operator"
+    },
+    "lead": {
+      "es": "Esta aventura no se trata de un cambio, pero parece ser algo inevitable.",
+      "en": "This adventure is not about a change, but it seems to be something inevitable."
+    },
+    "image": {
+      "src": "/paginas/nosotros/hero/image/src.jpg",
+      "alt": {
+        "es": "Grupo de Quetzal Tours en Mitla",
+        "en": "Quetzal Tours group in Mitla"
+      }
+    }
+  },
+  "letter": {
+    "greeting": {
+      "es": "Muy estimados visitantes:",
+      "en": "Dear visitors:"
+    },
+    "rows": [
+      {
+        "text": [
+          {
+            "es": "Bienvenidos a Oaxaca. Gracias por venir. Hemos estado aquí por más de 3,000 años. Este viejo legado cultural continúa viviendo en los vastos paisajes de la Sierra, los Valles y la Costa.",
+            "en": "Welcome to Oaxaca. Thank you for coming. We have been here for more than 3,000 years. This old cultural legacy lives on in the vast landscapes of the Sierra, the Valleys and the Coast."
+          },
+          {
+            "es": "Puedes verlo en los antiguos templos, pirámides y tumbas mixtecas y zapotecas, y oírlo cuando te encuentres con los zapotecas de hoy, en sus pueblos y mercados, descendientes directos de una de las civilizaciones antiguas más desarrolladas del mundo.",
+            "en": "You can see it in the ancient Mixtec and Zapotec temples, pyramids and tombs, and hear it when you meet today's Zapotecs, in their towns and markets, direct descendants of one of the most developed ancient civilizations in the world."
+          }
+        ],
+        "image": {
+          "src": "/paginas/nosotros/letter/rows/0/image/src.webp",
+          "alt": {
+            "es": "Viajeros de Quetzal Tours en una zona arqueológica",
+            "en": "Quetzal Tours travelers at an archaeological site"
+          }
+        }
+      },
+      {
+        "text": [
+          {
+            "es": "Queremos darles la bienvenida para que vengan y sientan el poder y la gloria del **Mundo Mesoamericano**, especialmente del Mundo Zapoteco y el Mundo Maya.",
+            "en": "We want to welcome you to come and feel the power and glory of the **Mesoamerican World**, especially the Zapotec World and the Maya World."
+          }
+        ],
+        "image": {
+          "src": "/paginas/nosotros/letter/rows/1/image/src.webp",
+          "alt": {
+            "es": "Tintes naturales y materiales de los talleres de Teotitlán del Valle",
+            "en": "Natural dyes and materials from the Teotitlán del Valle workshops"
+          }
+        }
+      }
+    ],
+    "farewell": {
+      "es": "¡Bienvenidos!",
+      "en": "Welcome!"
+    },
+    "signature": {
+      "es": "El equipo de Quetzal Tour Operator.",
+      "en": "The Quetzal Tour Operator team."
+    }
+  },
+  "statsKicker": {
+    "es": "Quetzal en cifras",
+    "en": "Quetzal in numbers"
+  },
+  "closing": {
+    "title": {
+      "es": "Vive la magia de **Oaxaca**",
+      "en": "Live the magic of **Oaxaca**"
+    },
+    "image": {
+      "src": "/paginas/nosotros/closing/image/src.webp",
+      "alt": {
+        "es": "Monte Albán sobre el Valle de Oaxaca",
+        "en": "Monte Albán above the Oaxaca Valley"
+      }
+    },
+    "cta": {
+      "es": "Escríbenos",
+      "en": "Write to us"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 
 /**
- * Las rutas de fotos del archivo de contenido ('/tours/…', '/fotos/…')
+ * Las rutas de fotos del contenido ('/tours/<slug>/…', '/paginas/…')
  * apuntan a src/assets. Aquí se resuelven a metadatos de Astro para que
  * <Photo> genere tamaños y formatos optimizados en el build.
  */

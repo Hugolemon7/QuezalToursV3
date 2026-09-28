@@ -1,0 +1,19 @@
+{
+  "name": "Clase de Cocina Oaxaqueña",
+  "nameEn": "Oaxacan Cooking Class",
+  "order": 4,
+  "category": "gastronomia",
+  "duration": "5",
+  "region": {
+    "es": "Ciudad de Oaxaca",
+    "en": "Oaxaca City"
+  },
+  "banner": "/tours/clase-de-cocina-oaxaquena/banner.webp",
+  "cover": {
+    "alt": {}
+  },
+  "summary": {},
+  "detail": {
+    "discriminant": false
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "Fiesta de Muertos en Oaxaca 2026",
+  "nameEn": "Day of the Dead in Oaxaca 2026",
+  "order": 1,
+  "summary": {
+    "es": "Transportación, alojamiento, desayunos y tours, incluido el tour nocturno de panteones en Xoxocotlán.",
+    "en": "Transportation, lodging, breakfasts and tours, including the night cemetery tour in Xoxocotlán."
+  },
+  "cover": {
+    "src": "/paquetes/fiesta-de-muertos-en-oaxaca-2026/cover/src.webp",
+    "alt": {
+      "es": "Joven con maquillaje de catrín, estrella de papel y cempasúchil en un maizal",
+      "en": "Young man with catrín makeup, a paper star and marigolds in a cornfield"
+    }
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "dates": {},
+      "body": [
+        {
+          "es": "Los festejos del Día de Muertos en México son únicos, pero como el festejo en Oaxaca no hay dos.",
+          "en": "Day of the Dead celebrations in Mexico are unique, but there is nothing like the celebration in Oaxaca."
+        },
+        {
+          "es": "Oaxaca es el ejemplo ideal de costumbre y tradición, de respeto por la cultura, su pueblo y sus orígenes.",
+          "en": "Oaxaca is the ideal example of custom and tradition, of respect for culture, its people and its origins."
+        },
+        {
+          "es": "Nuestro paquete vacacional incluye transportación, alojamiento, desayunos y tours, incluido el tour nocturno de panteones para conocer la celebración indígena de la Fiesta de Muertos en Xoxocotlán, locación que inspiró la película Coco, de Pixar.",
+          "en": "Our vacation package includes transportation, lodging, breakfasts and tours, including the night cemetery tour to experience the Indigenous Day of the Dead celebration in Xoxocotlán, the location that inspired Pixar's film Coco."
+        },
+        {
+          "es": "Llámanos o escríbenos para reservar tu lugar.",
+          "en": "Call or write to us to book your spot."
+        }
+      ],
+      "includes": [
+        {
+          "es": "Transportación",
+          "en": "Transportation"
+        },
+        {
+          "es": "Alojamiento",
+          "en": "Lodging"
+        },
+        {
+          "es": "Desayunos",
+          "en": "Breakfasts"
+        },
+        {
+          "es": "Tours",
+          "en": "Tours"
+        },
+        {
+          "es": "Tour nocturno de panteones",
+          "en": "Night cemetery tour"
+        }
+      ]
+    }
+  }
+}

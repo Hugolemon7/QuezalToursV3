@@ -1,0 +1,42 @@
+# Publica el sitio en Hostinger cada vez que cambia la rama main
+# (incluye los cambios que se guardan desde el panel /keystatic).
+#
+# Configuración única en GitHub → Settings → Secrets and variables → Actions:
+#   Secrets:   FTP_SERVER, FTP_USERNAME, FTP_PASSWORD  (datos de FTP de Hostinger)
+#   Variables: FTP_SERVER_DIR (opcional, por defecto "public_html/")
+name: Publicar en Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # botón "Run workflow" para publicar a mano
+
+concurrency:
+  group: hostinger
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar sitio estático
+        run: npm run build
+
+      - name: Subir a Hostinger por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}

@@ -1,0 +1,212 @@
+{
+  "groups": [
+    {
+      "title": {
+        "es": "Circuitos culturales",
+        "en": "Cultural circuits"
+      },
+      "items": [
+        {
+          "code": "Q101",
+          "name": {
+            "es": "Ciudad de México – Cancún",
+            "en": "Mexico City – Cancún"
+          },
+          "days": "07"
+        },
+        {
+          "code": "Q102",
+          "name": {
+            "es": "Cancún – Ciudad de México",
+            "en": "Cancún – Mexico City"
+          },
+          "days": "07"
+        },
+        {
+          "code": "Q103",
+          "name": {
+            "es": "Oaxaca – Huatulco, México",
+            "en": "Oaxaca – Huatulco, Mexico"
+          },
+          "days": "05"
+        },
+        {
+          "code": "Q104",
+          "name": {
+            "es": "Tuxtla Gutiérrez – San Cristóbal, México",
+            "en": "Tuxtla Gutiérrez – San Cristóbal, Mexico"
+          },
+          "days": "05"
+        },
+        {
+          "code": "Q105",
+          "name": {
+            "es": "Villahermosa – Palenque, México",
+            "en": "Villahermosa – Palenque, Mexico"
+          },
+          "days": "05"
+        },
+        {
+          "code": "Q106",
+          "name": {
+            "es": "Mérida – Cancún, México",
+            "en": "Mérida – Cancún, Mexico"
+          },
+          "days": "05"
+        },
+        {
+          "code": "Q107",
+          "name": {
+            "es": "México Antiguo",
+            "en": "Ancient Mexico"
+          },
+          "days": "08"
+        },
+        {
+          "code": "Q108",
+          "name": {
+            "es": "Pasión Mexicana (Escorted)",
+            "en": "Mexican Passion (Escorted)"
+          },
+          "days": "10"
+        },
+        {
+          "code": "Q109",
+          "name": {
+            "es": "México Mágico",
+            "en": "Magical Mexico"
+          },
+          "days": "15"
+        },
+        {
+          "code": "Q110",
+          "name": {
+            "es": "Senderos Mesoamericanos, México y Guatemala",
+            "en": "Mesoamerican Trails, Mexico and Guatemala"
+          },
+          "days": "24"
+        },
+        {
+          "code": "Q201",
+          "name": {
+            "es": "Paisajes y Culturas de Guatemala",
+            "en": "Landscapes and Cultures of Guatemala"
+          },
+          "days": "06"
+        }
+      ]
+    },
+    {
+      "title": {
+        "es": "Circuitos de naturaleza",
+        "en": "Nature circuits"
+      },
+      "items": [
+        {
+          "code": "Q601",
+          "name": {
+            "es": "Aves Mexicanas, Parque Nacional Benito Juárez",
+            "en": "Mexican Birds, Benito Juárez National Park"
+          },
+          "days": "09"
+        },
+        {
+          "code": "Q602",
+          "name": {
+            "es": "Aves Mexicanas, Parque Nacional de Chacahua",
+            "en": "Mexican Birds, Chacahua National Park"
+          },
+          "days": "08"
+        },
+        {
+          "code": "Q603",
+          "name": {
+            "es": "Ríos, Selvas y Pirámides, Chiapas, México",
+            "en": "Rivers, Jungles and Pyramids, Chiapas, Mexico"
+          },
+          "days": "08"
+        },
+        {
+          "code": "Q604",
+          "name": {
+            "es": "Descenso de Ríos y Caminata por la Selva Tropical, Veracruz, México",
+            "en": "River Rafting and Rainforest Hiking, Veracruz, Mexico"
+          },
+          "days": "12"
+        },
+        {
+          "code": "Q605",
+          "name": {
+            "es": "Descenso de Ríos en Bosque Tropical, Rápidos Clase III–IV, Veracruz, México",
+            "en": "Rafting in the Tropical Forest, Class III–IV Rapids, Veracruz, Mexico"
+          },
+          "days": "03"
+        },
+        {
+          "code": "Q606",
+          "name": {
+            "es": "Descenso de Ríos por Cañones Vírgenes, Rápidos Clase IV–V, Veracruz, México",
+            "en": "Rafting Through Pristine Canyons, Class IV–V Rapids, Veracruz, Mexico"
+          },
+          "days": "03"
+        },
+        {
+          "code": "Q607",
+          "name": {
+            "es": "Excursión al Río Usumacinta, Chiapas, México",
+            "en": "Usumacinta River Expedition, Chiapas, Mexico"
+          },
+          "days": "08"
+        },
+        {
+          "code": "Q608",
+          "name": {
+            "es": "Selvas, Ríos y Pirámides de México y Guatemala",
+            "en": "Jungles, Rivers and Pyramids of Mexico and Guatemala"
+          },
+          "days": "11"
+        },
+        {
+          "code": "Q609",
+          "name": {
+            "es": "Río Usumacinta – Mundo Maya, Chiapas, México",
+            "en": "Usumacinta River – Maya World, Chiapas, Mexico"
+          },
+          "days": "10"
+        },
+        {
+          "code": "Q610",
+          "name": {
+            "es": "Santuario de Flamingos, Yucatán, México",
+            "en": "Flamingo Sanctuary, Yucatán, Mexico"
+          },
+          "days": "05"
+        },
+        {
+          "code": "Q611",
+          "name": {
+            "es": "Avistamiento de Ballenas, Nayarit y Baja California, México",
+            "en": "Whale Watching, Nayarit and Baja California, Mexico"
+          },
+          "days": "05–06"
+        },
+        {
+          "code": "Q612",
+          "name": {
+            "es": "Santuario de Mariposas, Michoacán, México",
+            "en": "Monarch Butterfly Sanctuary, Michoacán, Mexico"
+          },
+          "days": "02–03"
+        },
+        {
+          "code": "Q613",
+          "name": {
+            "es": "Costa Rica. Costa a Costa",
+            "en": "Costa Rica. Coast to Coast"
+          },
+          "days": "09"
+        }
+      ]
+    }
+  ]
+}

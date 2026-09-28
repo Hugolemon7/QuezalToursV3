@@ -1,0 +1,175 @@
+{
+  "name": "Monte Albán Tour",
+  "nameEn": "Monte Albán Tour",
+  "order": 6,
+  "category": "arqueologia",
+  "duration": "3:30",
+  "region": {
+    "es": "Valle de Oaxaca",
+    "en": "Oaxaca Valley"
+  },
+  "banner": "/tours/tour-a-monte-alban-oaxaca/banner.webp",
+  "cover": {
+    "src": "/tours/tour-a-monte-alban-oaxaca/cover/src.webp",
+    "alt": {
+      "es": "Monte Albán sobre el Valle de Oaxaca",
+      "en": "Monte Albán above the Oaxaca Valley"
+    }
+  },
+  "summary": {
+    "es": "Explora uno de los sitios arqueológicos más emblemáticos de Mesoamérica, a 10 km de la ciudad de Oaxaca.",
+    "en": "Explore one of the most iconic archaeological sites in Mesoamerica, 10 km from Oaxaca City."
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Tour a la Zona Arqueológica de Monte Albán.",
+        "en": "Tour to the Monte Albán Archaeological Site."
+      },
+      "body": [
+        {
+          "es": "Explora uno de los sitios arqueológicos más emblemáticos de Mesoamérica. A solo 10 kilómetros de la ciudad de Oaxaca, Monte Albán se alza sobre una montaña que domina el Valle, como testigo milenario de la grandeza zapoteca.",
+          "en": "Explore one of the most iconic archaeological sites in Mesoamerica. Just 10 kilometers from Oaxaca City, Monte Albán rises on a mountain overlooking the Valley, an ancient witness to Zapotec greatness."
+        },
+        {
+          "es": "Con más de tres mil años de historia, este antiguo centro ceremonial fue cuna de una de las civilizaciones más importantes del continente. Durante el recorrido visitaremos la **Plaza Principal**, el **Juego de Pelota**, el **Observatorio Astronómico**, el **Edificio de los Danzantes** y otros espacios que aún conservan el poder simbólico y político de la época prehispánica.",
+          "en": "With more than three thousand years of history, this ancient ceremonial center was the cradle of one of the most important civilizations on the continent. On the tour we will visit the **Main Plaza**, the **Ball Court**, the **Astronomical Observatory**, the **Building of the Dancers** and other spaces that still hold the symbolic and political power of the pre-Hispanic era."
+        },
+        {
+          "es": "Desde lo alto de Monte Albán, la vista panorámica de los Valles Centrales y de la “Verde Antequera” te regalará una nueva perspectiva del territorio oaxaqueño.",
+          "en": "From the top of Monte Albán, the panoramic view of the Central Valleys and the “Green Antequera” will give you a new perspective on Oaxacan land."
+        }
+      ],
+      "departures": {
+        "es": "Salidas diarias desde la Ciudad de Oaxaca.",
+        "en": "Daily departures from Oaxaca City."
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Plaza Principal",
+            "en": "Main Plaza"
+          },
+          "text": {
+            "es": "El corazón ceremonial de la ciudad zapoteca.",
+            "en": "The ceremonial heart of the Zapotec city."
+          },
+          "image": {
+            "src": "/tours/tour-a-monte-alban-oaxaca/detail/value/stops/0/image/src.webp",
+            "alt": {
+              "es": "Plaza Principal de Monte Albán",
+              "en": "Main Plaza of Monte Albán"
+            }
+          }
+        },
+        {
+          "title": {
+            "es": "Juego de Pelota",
+            "en": "Ball Court"
+          },
+          "text": {},
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Observatorio Astronómico",
+            "en": "Astronomical Observatory"
+          },
+          "text": {},
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Edificio de los Danzantes",
+            "en": "Building of the Dancers"
+          },
+          "text": {},
+          "image": {
+            "alt": {}
+          }
+        }
+      ],
+      "includes": [
+        {
+          "es": "Guía de turista certificado",
+          "en": "Certified tour guide"
+        },
+        {
+          "es": "Seguro de viajero a bordo",
+          "en": "Traveler insurance on board"
+        },
+        {
+          "es": "Transporte de lujo de uso exclusivo de turismo",
+          "en": "Luxury transport for exclusive tourist use"
+        },
+        {
+          "es": "Impuestos",
+          "en": "Taxes"
+        }
+      ],
+      "excludes": [
+        {
+          "es": "Propinas",
+          "en": "Tips"
+        },
+        {
+          "es": "Ningún otro servicio que no esté aquí claramente especificado",
+          "en": "Any other service not clearly specified here"
+        }
+      ],
+      "itinerary": [
+        {
+          "label": {
+            "es": "Salida",
+            "en": "Departure"
+          },
+          "value": {
+            "es": "Pickup en el lobby de su hotel",
+            "en": "Pickup at your hotel lobby"
+          }
+        },
+        {
+          "label": {
+            "es": "Hora de salida",
+            "en": "Departure time"
+          },
+          "value": {
+            "es": "15 minutos antes, para salir a tiempo a las 09:30 h o 14:30 h.",
+            "en": "15 minutes before, to leave on time at 9:30 a.m. or 2:30 p.m."
+          }
+        },
+        {
+          "label": {
+            "es": "Regreso",
+            "en": "Return"
+          },
+          "value": {
+            "es": "Regreso aproximado a las 13:00 h, y 17:30 h en el tour de la tarde.",
+            "en": "Approximate return at 1:00 p.m., or 5:30 p.m. on the afternoon tour."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/tours/tour-a-monte-alban-oaxaca/detail/value/gallery/0/src.webp",
+          "alt": {
+            "es": "Monte Albán",
+            "en": "Monte Albán"
+          }
+        },
+        {
+          "src": "/tours/tour-a-monte-alban-oaxaca/detail/value/gallery/1/src.webp",
+          "alt": {
+            "es": "Monte Albán",
+            "en": "Monte Albán"
+          }
+        }
+      ]
+    }
+  }
+}

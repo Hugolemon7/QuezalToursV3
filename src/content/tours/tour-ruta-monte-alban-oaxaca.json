@@ -1,0 +1,203 @@
+{
+  "name": "Tour Ruta Monte Albán",
+  "nameEn": "Monte Albán Route Tour",
+  "order": 1,
+  "category": "arqueologia",
+  "duration": "8",
+  "region": {
+    "es": "Valles de Oaxaca",
+    "en": "Valleys of Oaxaca"
+  },
+  "banner": "/tours/tour-ruta-monte-alban-oaxaca/banner.webp",
+  "cover": {
+    "src": "/tours/tour-ruta-monte-alban-oaxaca/cover/src.webp",
+    "alt": {
+      "es": "Zona arqueológica de Monte Albán",
+      "en": "Monte Albán archaeological site"
+    }
+  },
+  "summary": {
+    "es": "Explora Monte Albán, la majestuosa ciudad zapoteca; descubre la creatividad de los alebrijes en Arrazola; y conoce la tradición del barro negro en San Bartolo Coyotepec."
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Tour a la Zona Arqueológica de Monte Albán, San Antonio Arrazola y San Bartolo Coyotepec.",
+        "en": "Tour to the Monte Albán Archaeological Site, San Antonio Arrazola and San Bartolo Coyotepec."
+      },
+      "body": [
+        {
+          "es": "A tan solo diez kilómetros de la Ciudad de Oaxaca, se encuentra **Monte Albán**, una de las zonas arqueológicas más impresionantes del continente americano y corazón de la antigua civilización zapoteca.",
+          "en": "Just ten kilometers from Oaxaca City lies **Monte Albán**, one of the most impressive archaeological sites in the Americas and the heart of the ancient Zapotec civilization."
+        },
+        {
+          "es": "Con más de tres mil años de historia, esta majestuosa ciudad prehispánica nos recibe en la cima de una montaña con vistas espectaculares del Valle de Oaxaca. Exploraremos su **Plaza Principal**, el **Juego de Pelota**, el enigmático **Edificio de los Danzantes** y su **Observatorio Astronómico**, entre otros vestigios que revelan la grandeza de esta cultura milenaria.",
+          "en": "With more than three thousand years of history, this majestic pre-Hispanic city welcomes us from a mountaintop with spectacular views of the Oaxaca Valley. We will explore its **Main Plaza**, the **Ball Court**, the enigmatic **Building of the Dancers** and its **Astronomical Observatory**, among other remains that reveal the greatness of this ancient culture."
+        },
+        {
+          "es": "Después de esta inmersión histórica, nos dirigimos al pueblo indígena de **San Antonio Arrazola**, cuna de los famosos **alebrijes**, coloridas figuras talladas en madera que dan vida a criaturas fantásticas surgidas de la imaginación. Visitaremos talleres artesanales donde los artistas locales comparten con orgullo su proceso creativo, inspiración que incluso dejó huella en la película animada **Coco** de Pixar.",
+          "en": "After this dive into history, we head to the Indigenous town of **San Antonio Arrazola**, birthplace of the famous **alebrijes**, colorful wood-carved figures that bring imaginary creatures to life. We will visit artisan workshops where local artists proudly share their creative process, an inspiration that even left its mark on Pixar's animated film **Coco**."
+        },
+        {
+          "es": "Más adelante, disfrutaremos de un descanso para saborear la riqueza gastronómica de la región en un **restaurante típico de comida oaxaqueña**, con platillos tradicionales llenos de historia y sabor.",
+          "en": "Later, we will take a break to savor the region's cuisine at a **traditional Oaxacan restaurant**, with dishes full of history and flavor."
+        },
+        {
+          "es": "La última parada del día nos lleva a **San Bartolo Coyotepec**, pueblo reconocido mundialmente por su inconfundible **cerámica negra**. Aquí visitaremos talleres y espacios de exposición donde admiraremos cómo, con técnica ancestral y barro local, los artesanos moldean y pulen piezas que son verdaderas joyas del arte popular oaxaqueño.",
+          "en": "The last stop of the day takes us to **San Bartolo Coyotepec**, a town world-renowned for its unmistakable **black pottery**. Here we will visit workshops and showrooms to see how artisans shape and polish pieces with ancestral techniques and local clay, true jewels of Oaxacan folk art."
+        },
+        {
+          "es": "Con el corazón lleno de historia, arte y sabores, regresamos a la ciudad.",
+          "en": "With hearts full of history, art and flavor, we return to the city."
+        }
+      ],
+      "departures": {
+        "es": "Salidas diarias desde la Ciudad de Oaxaca.",
+        "en": "Daily departures from Oaxaca City."
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Monte Albán",
+            "en": "Monte Albán"
+          },
+          "text": {
+            "es": "Plaza Principal, Juego de Pelota, Edificio de los Danzantes y Observatorio Astronómico.",
+            "en": "Main Plaza, Ball Court, Building of the Dancers and Astronomical Observatory."
+          },
+          "image": {
+            "src": "/tours/tour-ruta-monte-alban-oaxaca/detail/value/stops/0/image/src.webp",
+            "alt": {
+              "es": "Monte Albán",
+              "en": "Monte Albán"
+            }
+          }
+        },
+        {
+          "title": {
+            "es": "San Antonio Arrazola",
+            "en": "San Antonio Arrazola"
+          },
+          "text": {
+            "es": "Talleres de alebrijes tallados en madera.",
+            "en": "Workshops of wood-carved alebrijes."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Comida oaxaqueña",
+            "en": "Oaxacan lunch"
+          },
+          "text": {
+            "es": "Descanso en un restaurante típico de la región.",
+            "en": "A break at a traditional restaurant of the region."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "San Bartolo Coyotepec",
+            "en": "San Bartolo Coyotepec"
+          },
+          "text": {
+            "es": "Talleres de cerámica de barro negro.",
+            "en": "Black clay pottery workshops."
+          },
+          "image": {
+            "src": "/tours/tour-ruta-monte-alban-oaxaca/detail/value/stops/3/image/src.webp",
+            "alt": {
+              "es": "Barro negro de San Bartolo Coyotepec",
+              "en": "Black clay from San Bartolo Coyotepec"
+            }
+          }
+        }
+      ],
+      "includes": [
+        {
+          "es": "Guía de turista certificado",
+          "en": "Certified tour guide"
+        },
+        {
+          "es": "Seguro de viajero a bordo",
+          "en": "Traveler insurance on board"
+        },
+        {
+          "es": "Transporte de lujo de uso exclusivo de turismo",
+          "en": "Luxury transport for exclusive tourist use"
+        },
+        {
+          "es": "Impuestos",
+          "en": "Taxes"
+        }
+      ],
+      "excludes": [
+        {
+          "es": "Propinas",
+          "en": "Tips"
+        },
+        {
+          "es": "Ningún otro servicio que no esté aquí claramente especificado",
+          "en": "Any other service not clearly specified here"
+        },
+        {
+          "es": "Comida en el trayecto",
+          "en": "Meal during the tour"
+        }
+      ],
+      "itinerary": [
+        {
+          "label": {
+            "es": "Salida",
+            "en": "Departure"
+          },
+          "value": {
+            "es": "Pickup en el lobby de su hotel",
+            "en": "Pickup at your hotel lobby"
+          }
+        },
+        {
+          "label": {
+            "es": "Hora de salida",
+            "en": "Departure time"
+          },
+          "value": {
+            "es": "15 minutos antes, para salir a tiempo a las 09:30 h.",
+            "en": "15 minutes before, to leave on time at 9:30 a.m."
+          }
+        },
+        {
+          "label": {
+            "es": "Regreso",
+            "en": "Return"
+          },
+          "value": {
+            "es": "Regreso aproximado a las 18:00 h.",
+            "en": "Approximate return at 6:00 p.m."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/tours/tour-ruta-monte-alban-oaxaca/detail/value/gallery/0/src.webp",
+          "alt": {
+            "es": "Monte Albán",
+            "en": "Monte Albán"
+          }
+        },
+        {
+          "src": "/tours/tour-ruta-monte-alban-oaxaca/detail/value/gallery/1/src.webp",
+          "alt": {
+            "es": "San Bartolo Coyotepec",
+            "en": "San Bartolo Coyotepec"
+          }
+        }
+      ]
+    }
+  }
+}

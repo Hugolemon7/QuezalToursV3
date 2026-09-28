@@ -1,0 +1,16 @@
+{
+  "name": "Oaxaca de Sabores",
+  "nameEn": "Flavors of Oaxaca",
+  "order": 2,
+  "summary": {},
+  "cover": {
+    "src": "/paquetes/oaxaca-de-sabores/cover/src.webp",
+    "alt": {
+      "es": "Mesa de platillos y dulces oaxaqueños sobre el pasto",
+      "en": "Table of Oaxacan dishes and sweets on the grass"
+    }
+  },
+  "detail": {
+    "discriminant": false
+  }
+}

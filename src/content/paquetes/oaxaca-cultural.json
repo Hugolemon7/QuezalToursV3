@@ -1,0 +1,16 @@
+{
+  "name": "Oaxaca Cultural",
+  "nameEn": "Cultural Oaxaca",
+  "order": 3,
+  "summary": {},
+  "cover": {
+    "src": "/paquetes/oaxaca-cultural/cover/src.webp",
+    "alt": {
+      "es": "Vista panorámica de Monte Albán",
+      "en": "Panoramic view of Monte Albán"
+    }
+  },
+  "detail": {
+    "discriminant": false
+  }
+}

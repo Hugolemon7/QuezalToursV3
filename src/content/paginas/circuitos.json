@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": {
+      "es": "Circuitos turísticos",
+      "en": "Tour Circuits"
+    },
+    "description": {
+      "es": "Circuitos por México y Centroamérica desde 4 días con alojamiento, vuelos, tours, traslados y alimentos.",
+      "en": "Circuits across Mexico and Central America from 4 days, with lodging, flights, tours, transfers and meals."
+    }
+  },
+  "hero": {
+    "title": {
+      "es": "Circuitos **turísticos**",
+      "en": "Tour **Circuits**"
+    },
+    "lead": {
+      "es": "Aventúrate a conocer México y Centroamérica.",
+      "en": "Venture out to discover Mexico and Central America."
+    },
+    "image": {
+      "src": "/paginas/circuitos/hero/image/src.webp",
+      "alt": {
+        "es": "Valle de Oaxaca",
+        "en": "Oaxaca Valley"
+      }
+    }
+  },
+  "description": [
+    {
+      "es": "Conoce el lado cultural y natural de México. Circuitos turísticos desde 4 días con alojamiento, vuelos, tours, traslados y alimentos.",
+      "en": "Discover the cultural and natural side of Mexico. Tour circuits from 4 days with lodging, flights, tours, transfers and meals."
+    },
+    {
+      "es": "Operamos servicios en todo el mundo maya —Honduras, Belice, El Salvador, Guatemala y México— con un único operador turístico.",
+      "en": "We operate services throughout the Maya world —Honduras, Belize, El Salvador, Guatemala and Mexico— as a single tour operator."
+    },
+    {
+      "es": "Contamos con hospedaje de 3, 4 y 5 estrellas, cabañas ecoturísticas, clase especial, hoteles boutique, gran turismo, resorts y todo incluido, además de transportación terrestre y guías certificados con experiencia.",
+      "en": "We offer 3, 4 and 5-star lodging, eco-cabins, special class, boutique hotels, grand tourism, resorts and all-inclusive options, plus ground transportation and experienced certified guides."
+    }
+  ]
+}

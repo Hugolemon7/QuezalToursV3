@@ -1,0 +1,19 @@
+{
+  "name": "Tour a Yagul, Tlacochahuaya y Jaguar Xoo",
+  "nameEn": "Yagul, Tlacochahuaya & Jaguar Xoo Tour",
+  "order": 10,
+  "category": "arqueologia",
+  "duration": "7",
+  "region": {
+    "es": "Valles Centrales",
+    "en": "Central Valleys"
+  },
+  "banner": "/tours/tour-yagul-tlacochahuaya-jaguar-xoo/banner.webp",
+  "cover": {
+    "alt": {}
+  },
+  "summary": {},
+  "detail": {
+    "discriminant": false
+  }
+}

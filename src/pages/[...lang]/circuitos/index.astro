@@ -10,7 +10,7 @@ import { tr, langPaths } from '@/lib/i18n';
 export const getStaticPaths = langPaths;
 const { lang } = Astro.props as { lang: Lang };
 const p = pages.circuitos;
-const groups = [circuits.cultural, circuits.nature];
+const groups = circuits;
 const days = tr(ui.days, lang);
 const wa = (code: string, name: string, d: string) =>
   `${contact.whatsapp}?text=${encodeURIComponent(`${tr(ui.whatsappCircuitMsg, lang)} ${code}: ${name} (${d} ${days})`)}`;

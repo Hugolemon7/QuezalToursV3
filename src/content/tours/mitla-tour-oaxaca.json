@@ -1,0 +1,286 @@
+{
+  "name": "Tour Ruta Mitla",
+  "nameEn": "Mitla Route Tour",
+  "order": 2,
+  "category": "arqueologia",
+  "duration": "10",
+  "region": {
+    "es": "Valles de Oaxaca",
+    "en": "Valleys of Oaxaca"
+  },
+  "banner": "/tours/mitla-tour-oaxaca/banner.webp",
+  "cover": {
+    "src": "/tours/mitla-tour-oaxaca/cover/src.jpg",
+    "alt": {
+      "es": "Grecas de la zona arqueológica de Mitla",
+      "en": "Stone fretwork at the Mitla archaeological site"
+    }
+  },
+  "summary": {
+    "es": "Árbol del Tule, cascadas petrificadas de Hierve el Agua, Zona Arqueológica de Mitla, telares de Teotitlán del Valle y un palenque de mezcal."
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Tour al Árbol del Tule, Hierve el Agua, la Zona Arqueológica de Mitla, Teotitlán del Valle y un Palenque de Mezcal.",
+        "en": "Tour to the Tule Tree, Hierve el Agua, the Mitla Archaeological Site, Teotitlán del Valle and a mezcal distillery."
+      },
+      "body": [
+        {
+          "es": "Acompáñanos en un recorrido por los paisajes, sabores y tradiciones más emblemáticos de Oaxaca. Comenzamos con una visita al imponente **Árbol del Tule**, un ahuehuete milenario ubicado a tan solo diez kilómetros de la ciudad de Oaxaca.",
+          "en": "Join us on a journey through Oaxaca's most iconic landscapes, flavors and traditions. We start with a visit to the towering **Tule Tree**, a thousand-year-old ahuehuete cypress just ten kilometers from Oaxaca City."
+        },
+        {
+          "es": "Su gigantesco tronco, considerado el más ancho del mundo, ha sido testigo del paso del tiempo. Nuestra siguiente parada es **Hierve el Agua**, un paraje natural único en el mundo. Allí contemplarás las cascadas petrificadas formadas por minerales, suspendidas sobre un majestuoso valle. Podrás caminar por sus senderos y admirar el paisaje desde los miradores.",
+          "en": "Its gigantic trunk, considered the widest in the world, has witnessed the passing of time. Our next stop is **Hierve el Agua**, a natural site unique in the world. There you will see petrified waterfalls formed by minerals, suspended above a majestic valley. You can walk its trails and take in the landscape from the viewpoints."
+        },
+        {
+          "es": "Luego nos dirigimos a la **zona arqueológica de Mitla**, cuyo nombre en náhuatl, **Mictlán**, significa “Lugar de los Muertos”. Esta antigua ciudad zapoteca es famosa por su arquitectura única y sus grecas talladas en piedra. Visitaremos el Grupo de la Iglesia, el Grupo de las Columnas y sus cámaras funerarias.",
+          "en": "Then we head to the **Mitla archaeological site**, whose Nahuatl name, **Mictlán**, means “Place of the Dead”. This ancient Zapotec city is famous for its unique architecture and its stone-carved fretwork. We will visit the Church Group, the Group of the Columns and its burial chambers."
+        },
+        {
+          "es": "Más adelante, disfrutaremos de un descanso en un **restaurante típico de comida oaxaqueña**.",
+          "en": "Later, we will take a break at a **traditional Oaxacan restaurant**."
+        },
+        {
+          "es": "Continuamos hacia **Teotitlán del Valle**, pueblo zapoteco reconocido por su arte textil. Aquí, los telares de pedal y los tintes naturales como la grana cochinilla y el añil siguen dando vida a tapetes y piezas únicas. Visitaremos talleres familiares, el mercado local o espacios comunitarios.",
+          "en": "We continue to **Teotitlán del Valle**, a Zapotec town renowned for its textile art. Here, pedal looms and natural dyes such as cochineal and indigo still bring rugs and unique pieces to life. We will visit family workshops, the local market or community spaces."
+        },
+        {
+          "es": "Antes de regresar, haremos una parada opcional en un auténtico **palenque de mezcal artesanal**, para conocer el proceso tradicional de destilación. Disfrutaremos una degustación de mezcales jóvenes, reposados, añejos, de pechuga y cremas de mezcal.",
+          "en": "Before returning, we make an optional stop at an authentic **artisanal mezcal distillery** (palenque) to learn about the traditional distilling process. We will taste young, rested, aged and pechuga mezcals, as well as mezcal creams."
+        },
+        {
+          "es": "Además, los **domingos** es posible añadir una visita (con costo adicional) al tradicional **mercado indígena de Tlacolula**, uno de los más antiguos y coloridos de Oaxaca.",
+          "en": "On **Sundays**, you can also add a visit (at an extra cost) to the traditional **Tlacolula Indigenous market**, one of the oldest and most colorful in Oaxaca."
+        }
+      ],
+      "departures": {
+        "es": "Salidas diarias desde la Ciudad de Oaxaca.",
+        "en": "Daily departures from Oaxaca City."
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Árbol del Tule",
+            "en": "Tule Tree"
+          },
+          "text": {
+            "es": "Ahuehuete milenario con el tronco más ancho del mundo.",
+            "en": "A thousand-year-old cypress with the widest trunk in the world."
+          },
+          "image": {
+            "src": "/tours/mitla-tour-oaxaca/detail/value/stops/0/image/src.webp",
+            "alt": {
+              "es": "Árbol del Tule",
+              "en": "Tule Tree"
+            }
+          }
+        },
+        {
+          "title": {
+            "es": "Hierve el Agua",
+            "en": "Hierve el Agua"
+          },
+          "text": {
+            "es": "Cascadas petrificadas y miradores sobre el valle.",
+            "en": "Petrified waterfalls and viewpoints over the valley."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Zona Arqueológica de Mitla",
+            "en": "Mitla Archaeological Site"
+          },
+          "text": {
+            "es": "Grupo de la Iglesia, Grupo de las Columnas y cámaras funerarias.",
+            "en": "Church Group, Group of the Columns and burial chambers."
+          },
+          "image": {
+            "src": "/tours/mitla-tour-oaxaca/detail/value/stops/2/image/src.webp",
+            "alt": {
+              "es": "Zona arqueológica de Mitla",
+              "en": "Mitla archaeological site"
+            }
+          }
+        },
+        {
+          "title": {
+            "es": "Comida oaxaqueña",
+            "en": "Oaxacan lunch"
+          },
+          "text": {
+            "es": "Descanso en un restaurante típico de la región.",
+            "en": "A break at a traditional restaurant of the region."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Teotitlán del Valle",
+            "en": "Teotitlán del Valle"
+          },
+          "text": {
+            "es": "Telares de pedal y tintes naturales en talleres familiares.",
+            "en": "Pedal looms and natural dyes in family workshops."
+          },
+          "image": {
+            "src": "/tours/mitla-tour-oaxaca/detail/value/stops/4/image/src.webp",
+            "alt": {
+              "es": "Telar en Teotitlán del Valle",
+              "en": "Loom in Teotitlán del Valle"
+            }
+          }
+        },
+        {
+          "title": {
+            "es": "Palenque de mezcal",
+            "en": "Mezcal distillery"
+          },
+          "text": {
+            "es": "Parada opcional con degustación de mezcales artesanales.",
+            "en": "Optional stop with a tasting of artisanal mezcals."
+          },
+          "image": {
+            "src": "/tours/mitla-tour-oaxaca/detail/value/stops/5/image/src.webp",
+            "alt": {
+              "es": "Palenque de mezcal",
+              "en": "Mezcal distillery"
+            }
+          }
+        }
+      ],
+      "includes": [
+        {
+          "es": "Guía de turista certificado",
+          "en": "Certified tour guide"
+        },
+        {
+          "es": "Seguro de viajero a bordo",
+          "en": "Traveler insurance on board"
+        },
+        {
+          "es": "Transporte de lujo de uso exclusivo de turismo",
+          "en": "Luxury transport for exclusive tourist use"
+        },
+        {
+          "es": "Impuestos",
+          "en": "Taxes"
+        }
+      ],
+      "excludes": [
+        {
+          "es": "Propinas",
+          "en": "Tips"
+        },
+        {
+          "es": "Ningún otro servicio que no esté aquí claramente especificado",
+          "en": "Any other service not clearly specified here"
+        }
+      ],
+      "itinerary": [
+        {
+          "label": {
+            "es": "Salida",
+            "en": "Departure"
+          },
+          "value": {
+            "es": "Pickup en el lobby de su hotel",
+            "en": "Pickup at your hotel lobby"
+          }
+        },
+        {
+          "label": {
+            "es": "Hora de salida",
+            "en": "Departure time"
+          },
+          "value": {
+            "es": "15 minutos antes, para salir a tiempo a las 08:30 h.",
+            "en": "15 minutes before, to leave on time at 8:30 a.m."
+          }
+        },
+        {
+          "label": {
+            "es": "Regreso",
+            "en": "Return"
+          },
+          "value": {
+            "es": "Regreso aproximado a las 18:30 h.",
+            "en": "Approximate return at 6:30 p.m."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/0/src.jpg",
+          "alt": {
+            "es": "Mitla",
+            "en": "Mitla"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/1/src.jpg",
+          "alt": {
+            "es": "Mitla",
+            "en": "Mitla"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/2/src.webp",
+          "alt": {
+            "es": "Mitla",
+            "en": "Mitla"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/3/src.webp",
+          "alt": {
+            "es": "Árbol del Tule",
+            "en": "Tule Tree"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/4/src.webp",
+          "alt": {
+            "es": "Árbol del Tule",
+            "en": "Tule Tree"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/5/src.webp",
+          "alt": {
+            "es": "Árbol del Tule",
+            "en": "Tule Tree"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/6/src.webp",
+          "alt": {
+            "es": "Teotitlán del Valle",
+            "en": "Teotitlán del Valle"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/7/src.webp",
+          "alt": {
+            "es": "Teotitlán del Valle",
+            "en": "Teotitlán del Valle"
+          }
+        },
+        {
+          "src": "/tours/mitla-tour-oaxaca/detail/value/gallery/8/src.jpg",
+          "alt": {
+            "es": "Teotitlán del Valle",
+            "en": "Teotitlán del Valle"
+          }
+        }
+      ]
+    }
+  }
+}

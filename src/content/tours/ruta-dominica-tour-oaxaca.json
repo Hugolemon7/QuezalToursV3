@@ -1,0 +1,156 @@
+{
+  "name": "Ruta Dominica",
+  "nameEn": "Dominican Route",
+  "order": 9,
+  "category": "colonial",
+  "duration": "10",
+  "region": {
+    "es": "Región Mixteca",
+    "en": "Mixteca Region"
+  },
+  "banner": "/tours/ruta-dominica-tour-oaxaca/banner.webp",
+  "cover": {
+    "alt": {}
+  },
+  "summary": {
+    "es": "Tres de los conjuntos arquitectónicos más imponentes del México virreinal, en el corazón de la Mixteca.",
+    "en": "Three of the most imposing architectural complexes of colonial Mexico, in the heart of the Mixteca."
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Tour a Coixtlahuaca, Teposcolula y Yanhuitlán.",
+        "en": "Tour to Coixtlahuaca, Teposcolula and Yanhuitlán."
+      },
+      "body": [
+        {
+          "es": "Viaja al corazón de la Mixteca oaxaqueña para descubrir tres de los conjuntos arquitectónicos más imponentes del México virreinal.",
+          "en": "Travel to the heart of Oaxaca's Mixteca to discover three of the most imposing architectural complexes of colonial Mexico."
+        },
+        {
+          "es": "A solo dos horas de la Ciudad de Oaxaca nos esperan **Coixtlahuaca, Teposcolula y Yanhuitlán**, pueblos que resguardan joyas del arte sacro del siglo XVI.",
+          "en": "Just two hours from Oaxaca City, **Coixtlahuaca, Teposcolula and Yanhuitlán** await us, towns that safeguard gems of 16th-century sacred art."
+        },
+        {
+          "es": "Estos **templos, exconventos y capillas abiertas** fueron construidos durante la primera etapa de la colonización española, testigos del encuentro –y el contraste– entre la cosmovisión indígena y la expansión del poder europeo.",
+          "en": "These **churches, former convents and open chapels** were built during the first stage of Spanish colonization, witnesses to the encounter –and the contrast– between the Indigenous worldview and the expansion of European power."
+        },
+        {
+          "es": "En Coixtlahuaca admiraremos una de las capillas abiertas más antiguas del continente; en Teposcolula caminaremos por el Exconvento de San Pedro y San Pablo; y en Yanhuitlán exploraremos su templo dominico, cuya arquitectura y retablos son expresión viva del sincretismo cultural.",
+          "en": "In Coixtlahuaca we will admire one of the oldest open chapels on the continent; in Teposcolula we will walk through the Former Convent of San Pedro y San Pablo; and in Yanhuitlán we will explore its Dominican church, whose architecture and altarpieces are a living expression of cultural syncretism."
+        }
+      ],
+      "departures": {
+        "es": "Salidas diarias desde la Ciudad de Oaxaca, bajo reservación.",
+        "en": "Daily departures from Oaxaca City, by reservation."
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Coixtlahuaca",
+            "en": "Coixtlahuaca"
+          },
+          "text": {
+            "es": "Una de las capillas abiertas más antiguas del continente.",
+            "en": "One of the oldest open chapels on the continent."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Teposcolula",
+            "en": "Teposcolula"
+          },
+          "text": {
+            "es": "Exconvento de San Pedro y San Pablo.",
+            "en": "Former Convent of San Pedro y San Pablo."
+          },
+          "image": {
+            "alt": {}
+          }
+        },
+        {
+          "title": {
+            "es": "Yanhuitlán",
+            "en": "Yanhuitlán"
+          },
+          "text": {
+            "es": "Templo dominico y sus retablos.",
+            "en": "Dominican church and its altarpieces."
+          },
+          "image": {
+            "alt": {}
+          }
+        }
+      ],
+      "includes": [
+        {
+          "es": "Guía de turista certificado",
+          "en": "Certified tour guide"
+        },
+        {
+          "es": "Seguro de viajero a bordo",
+          "en": "Traveler insurance on board"
+        },
+        {
+          "es": "Transporte de lujo de uso exclusivo de turismo",
+          "en": "Luxury transport for exclusive tourist use"
+        },
+        {
+          "es": "Impuestos",
+          "en": "Taxes"
+        }
+      ],
+      "excludes": [
+        {
+          "es": "Propinas",
+          "en": "Tips"
+        },
+        {
+          "es": "Ningún otro servicio que no esté aquí claramente especificado",
+          "en": "Any other service not clearly specified here"
+        },
+        {
+          "es": "Comida en el trayecto",
+          "en": "Meal during the tour"
+        }
+      ],
+      "itinerary": [
+        {
+          "label": {
+            "es": "Salida",
+            "en": "Departure"
+          },
+          "value": {
+            "es": "Pickup en el lobby de su hotel",
+            "en": "Pickup at your hotel lobby"
+          }
+        },
+        {
+          "label": {
+            "es": "Hora de salida",
+            "en": "Departure time"
+          },
+          "value": {
+            "es": "15 minutos antes, para salir a tiempo a las 09:30 h.",
+            "en": "15 minutes before, to leave on time at 9:30 a.m."
+          }
+        },
+        {
+          "label": {
+            "es": "Regreso",
+            "en": "Return"
+          },
+          "value": {
+            "es": "Regreso aproximado a las 18:00 h.",
+            "en": "Approximate return at 6:00 p.m."
+          }
+        }
+      ],
+      "gallery": []
+    }
+  }
+}

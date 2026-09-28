@@ -6,22 +6,60 @@ Sitio estático bilingüe (ES/EN) hecho con [Astro](https://astro.build). El bri
 
 | Qué | Dónde |
 |---|---|
-| Todos los textos (ES y EN), tours, paquetes, circuitos, contacto, rutas de fotos | `src/content/site.ts` (única fuente de verdad) |
+| Tours, paquetes, circuitos, textos de páginas, contacto y cifras | Panel **/keystatic** (guarda en `src/content/**/*.json` y fotos en `src/assets/`) |
+| Textos de interfaz (botones, menús, formulario), navegación, aviso de privacidad | `src/content/site.ts` |
 | Colores, tipografía, espacios, movimiento, tema claro/oscuro | `src/styles/tokens.css` |
-| Fotos (se optimizan solas al compilar) | `src/assets/` |
+| Fotos (se optimizan solas al compilar) | Desde el panel; quedan en `src/assets/` |
 | Logo, logos de aliados, capas del hero, favicon | `public/` |
 | Fotos que no se usan ahora | `originales/` (no se publican) |
 
 Los textos en inglés son un **borrador** que conviene revisar con una persona nativa.
 
+## Panel de administración (Keystatic)
+
+- **En línea:** `https://<proyecto>.vercel.app/keystatic` → *Log in with GitHub*.
+  Cada **Save** es un commit en `main`; la GitHub Action vuelve a publicar el sitio
+  en Hostinger en 2–3 minutos (pestaña *Actions* del repositorio).
+- **En local:** `npm run dev` y abre http://localhost:4321/keystatic (guarda en tu disco;
+  luego haz commit y push).
+- Qué se puede editar se define en `keystatic.config.ts`. `src/content/site.ts` lee esos
+  JSON y les da la forma que usan las páginas.
+- El despliegue de Vercel es solo para el panel: tiene `noindex` y el formulario PHP no
+  funciona ahí. El sitio público sigue en Hostinger.
+
+### Configuración (solo la primera vez)
+
+1. **Crear la GitHub App (en local, una vez):** crea un archivo `.env` con
+   `PUBLIC_KEYSTATIC_STORAGE=github`, corre `npm run dev` y abre
+   http://127.0.0.1:4321/keystatic/setup. En *Deployed App URL* pon
+   `https://quetzaltours-v3.vercel.app` y sigue el asistente *Create GitHub App*.
+   Al terminar, Keystatic escribe en `.env`: `KEYSTATIC_GITHUB_CLIENT_ID`,
+   `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET` y `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`.
+   Cópialos en Vercel → Settings → Environment Variables y vuelve a desplegar.
+   Después borra la línea `PUBLIC_KEYSTATIC_STORAGE=github` para editar en local sin GitHub.
+   (`.env` nunca va a GitHub: está en `.gitignore`.)
+2. **Instala la GitHub App** en el repositorio `QuezalToursV3` (solo ese repo).
+3. **Da acceso a quien vaya a editar:** invítalo como colaborador del repositorio
+   (Settings → Collaborators). Necesita cuenta de GitHub.
+4. **FTP de Hostinger en GitHub:** Settings → Secrets and variables → Actions →
+   *New repository secret*: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`
+   (Hostinger → Archivos → Cuentas FTP). Si la carpeta del sitio no es `public_html/`
+   vista desde esa cuenta FTP, crea la variable `FTP_SERVER_DIR`.
+
 ## Trabajar en local
 
 ```bash
 npm install
-npm run dev          # http://localhost:4321
+npm run dev          # http://localhost:4321  (panel en /keystatic)
 ```
 
 ## Publicar en Hostinger
+
+Automático: cada cambio en `main` (desde el panel o con `git push`) lo publica la
+GitHub Action `.github/workflows/publicar-hostinger.yml`. Para publicar a mano sin
+cambios: pestaña *Actions* → *Publicar en Hostinger* → *Run workflow*.
+
+Manual (si la Action no está configurada):
 
 1. Compila el sitio:
    ```bash
