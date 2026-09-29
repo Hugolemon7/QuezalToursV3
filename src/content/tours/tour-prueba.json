@@ -1,0 +1,78 @@
+{
+  "name": "Tour Prueba",
+  "nameEn": "Test Tour",
+  "order": 1,
+  "category": "arte",
+  "duration": "1",
+  "region": {
+    "es": "Zona Prueba ",
+    "en": "Test zone"
+  },
+  "banner": "/tours/tour-prueba/banner.jpeg",
+  "cover": {
+    "src": "/tours/tour-prueba/cover/src.jpeg",
+    "alt": {
+      "es": "Test",
+      "en": "Test"
+    }
+  },
+  "summary": {
+    "es": "Esta es una prueba",
+    "en": "This is a test"
+  },
+  "detail": {
+    "discriminant": true,
+    "value": {
+      "subtitle": {
+        "es": "Subtitulo",
+        "en": "Subtitle"
+      },
+      "body": [
+        {
+          "es": "Párrafo 1",
+          "en": "paragraph 1"
+        }
+      ],
+      "departures": {
+        "es": "Test salidas",
+        "en": "Test runs"
+      },
+      "stops": [
+        {
+          "title": {
+            "es": "Lo que harás",
+            "en": "what you will do"
+          },
+          "text": {
+            "es": "descripcion",
+            "en": "Description "
+          },
+          "image": {
+            "src": "/tours/tour-prueba/detail/value/stops/0/image/src.jpeg",
+            "alt": {
+              "es": "Alt",
+              "en": "Alt"
+            }
+          }
+        }
+      ],
+      "includes": [],
+      "excludes": [],
+      "itinerary": [],
+      "gallery": [
+        {
+          "src": "/tours/tour-prueba/detail/value/gallery/0/src.jpeg",
+          "alt": {}
+        },
+        {
+          "src": "/tours/tour-prueba/detail/value/gallery/1/src.jpeg",
+          "alt": {}
+        },
+        {
+          "src": "/tours/tour-prueba/detail/value/gallery/2/src.png",
+          "alt": {}
+        }
+      ]
+    }
+  }
+}
